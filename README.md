@@ -47,9 +47,3 @@ Twitterで宣伝したり、SEO対策をする。最初のうちは、主な空�
 - 地図機能はGoogle Maps Platformを用いて実装する。
 - 検索フォームのオートコンプリート機能はStimulus Autocompleteを用いる。
 - 画像加工はImageMagickを使用する。
-
-## ■ 画面遷移図
-Figma：https://www.figma.com/file/wnKBknQS2o77HqFwtGZyv7/portfolio?type=design&mode=design&t=ZHzsF5j69e7oKZre-1
-
-## ■ ER図
-[![Image from Gyazo](https://i.gyazo.com/c8979f8a0c81da1c020db63023389e06.png)](https://gyazo.com/c8979f8a0c81da1c020db63023389e06)
