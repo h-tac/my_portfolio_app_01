@@ -52,4 +52,4 @@ Twitterで宣伝したり、SEO対策をする。最初のうちは、主な空�
 Figma：https://www.figma.com/file/wnKBknQS2o77HqFwtGZyv7/portfolio?type=design&mode=design&t=ZHzsF5j69e7oKZre-1
 
 ## ■ ER図
-[![Image from Gyazo](https://i.gyazo.com/b5e11568172f4a087b80359826b254dd.png)](https://gyazo.com/b5e11568172f4a087b80359826b254dd)
+[![Image from Gyazo](https://i.gyazo.com/151a9ce7c052b16b61ebb222040ac423.png)](https://gyazo.com/151a9ce7c052b16b61ebb222040ac423)
