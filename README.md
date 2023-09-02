@@ -50,3 +50,6 @@ Twitterで宣伝したり、SEO対策をする。最初のうちは、主な空�
 
 ## ■ 画面遷移図
 Figma：https://www.figma.com/file/wnKBknQS2o77HqFwtGZyv7/portfolio?type=design&mode=design&t=ZHzsF5j69e7oKZre-1
+
+## ■ ER図
+[![Image from Gyazo](https://i.gyazo.com/2ef05deb3832157e2fe12521be442c67.png)](https://gyazo.com/2ef05deb3832157e2fe12521be442c67)
