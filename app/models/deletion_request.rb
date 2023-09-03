@@ -1,0 +1,2 @@
+class DeletionRequest < ApplicationRecord
+end
