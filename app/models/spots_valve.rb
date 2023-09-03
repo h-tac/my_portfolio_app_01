@@ -1,0 +1,2 @@
+class SpotsValve < ApplicationRecord
+end
