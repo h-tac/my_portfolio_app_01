@@ -74,6 +74,4 @@ group :test do
 end
 
 gem 'sorcery', "0.16.3"
-gem 'jquery-rails'
 gem 'sass-rails'
-gem 'bootstrap-sass'
