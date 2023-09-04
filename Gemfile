@@ -74,3 +74,4 @@ group :test do
 end
 
 gem 'sorcery', "0.16.3"
+gem 'sass-rails'

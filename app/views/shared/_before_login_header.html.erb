@@ -1,0 +1,57 @@
+<header>
+  <nav class="navbar navbar-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler hover-opacity" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
+        <i class="fa-solid fa-bars fa-lg text-white"></i>
+      </button>
+      <div class="offcanvas offcanvas-start" id="menu">
+        <div class="offcanvas-header">
+          <p class="offcanvas-title h4">MENU</p>
+          <button class="btn-close text-reset" type="button" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav">
+            <li class="nav-item row align-items-center">
+              <i class="fa-solid fa-circle-info text-black col-1"></i>
+              <%= link_to 'サービスについて', '#', class: 'nav-link link-dark col hover-underline' %>
+            </li>
+            <li class="nav-item row align-items-center">
+              <i class="fa-solid fa-house text-black col-1"></i>
+              <%= link_to 'トップページ', root_path, class: 'nav-link link-dark col hover-underline' %>
+            </li>
+            <li class="nav-item row align-items-center">
+              <i class="fa-solid fa-magnifying-glass text-black col-1"></i>
+              <%= link_to '施設検索', '#', class: 'nav-link link-dark col hover-underline' %>
+            </li>
+            <li class="nav-item row align-items-center">
+              <i class="fa-solid fa-magnifying-glass-location text-black col-1"></i>
+              <%= link_to '地名検索', '#', class: 'nav-link link-dark col hover-underline' %>
+            </li>
+            <li class="nav-item row align-items-center">
+              <i class="fa-solid fa-list text-black col-1"></i>
+              <%= link_to '施設一覧', '#', class: 'nav-link link-dark col hover-underline' %>
+            </li>
+            <li class="nav-item row align-items-center">
+              <i class="fa-solid fa-user text-black col-1"></i>
+              <%= link_to 'アカウント', '#', class: 'nav-link link-dark col hover-underline' %>
+            </li>
+            <li class="nav-item row align-items-center">
+              <i class="fa-solid fa-table-list text-black col-1"></i>
+              <%= link_to '登録した施設', '#', class: 'nav-link link-dark col hover-underline' %>
+            </li>
+            <li class="nav-item row align-items-center">
+              <i class="fa-solid fa-star text-black col-1"></i>
+              <%= link_to 'お気に入り', '#', class: 'nav-link link-dark col hover-underline' %>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <h1><%= link_to '自転車空気入れマップ', root_path, class: 'navbar-brand hover-opacity' %></h1>
+
+      <%= link_to '#' do %>
+        <i class="fa-solid fa-arrow-right-to-bracket fa-2x text-white hover-opacity"></i>
+      <% end %>
+    </div>
+  </nav>
+</header>
