@@ -1,13 +1,28 @@
+let loadingInterval;
+let loadingDots = 0;
+
 function showLoadingMessage() {
   const loadingMessage = document.getElementById('loadingMessage');
   loadingMessage.style.display = 'block';
   loadingMessage.style.zIndex = '1000';
+
+  loadingInterval = setInterval(() => {
+    if (loadingDots < 3) {
+      loadingMessage.innerText += ".";
+      loadingDots++;
+    } else {
+      loadingMessage.innerText = "Loading map";
+      loadingDots = 0;
+    }
+  }, 500);
 }
 
 function hideLoadingMessage() {
   const loadingMessage = document.getElementById('loadingMessage');
   loadingMessage.style.display = 'none';
   loadingMessage.style.zIndex = '';
+
+  clearInterval(loadingInterval);
 }
 
 function initMap() {
