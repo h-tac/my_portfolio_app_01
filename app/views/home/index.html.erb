@@ -3,10 +3,13 @@
 </div>
 
 <script>
-  window.onload = function() {
+  function adjustMapHeight() {
     var headerHeight = document.getElementById('header').offsetHeight;
     document.getElementById('map').style.height = `calc(100vh - ${headerHeight}px)`;
   }
+
+  window.onload = adjustMapHeight;
+  window.onresize = adjustMapHeight;
 </script>
 
 <script async
