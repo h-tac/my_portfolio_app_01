@@ -1,2 +1,24 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div id="loadingMessage" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #333; padding: 10px; color: #fff; display: none;">
+  Loading map
+</div>
+
+<div class="container-fluid gx-0">
+  <div id="map"></div>
+</div>
+
+<script>
+  function adjustMapHeight() {
+    var headerHeight = document.getElementById('header').offsetHeight;
+    document.getElementById('map').style.height = `calc(100vh - ${headerHeight}px)`;
+  }
+
+  window.onload = adjustMapHeight;
+  window.onresize = adjustMapHeight;
+</script>
+
+<script async
+  src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
+  // <%= ENV["GOOGLE_MAPS_API_KEY"] %>
+</script>
+
+<%= javascript_include_tag 'google_maps_script' %>
