@@ -32,6 +32,11 @@ function hideLoadingMessage() {
 
 
 
+
+
+
+
+
 // マップを表示する関数
 function initMap() {
   showLoadingMessage();
@@ -39,6 +44,9 @@ function initMap() {
   let map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     fullscreenControl: false,
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.RIGHT_TOP,
+    },
   });
 
   // マーカーをマップの特定の位置に追加する関数
@@ -87,6 +95,8 @@ function initMap() {
 
 
 
+
+
   // 現在地へ移動するカスタムコントロール
   const currentLocationButton = document.createElement('button');
 
@@ -100,7 +110,7 @@ function initMap() {
   currentLocationButton.style.marginRight = '10px';
   currentLocationButton.style.marginTop = '10px';
   currentLocationButton.style.textAlign = 'center';
-  currentLocationButton.title = '現在地へ移動';
+  currentLocationButton.title = '現在地へ移動する';
   currentLocationButton.className = "hover-opacity";
 
   // FontAwesomeのアイコンを追加
@@ -126,4 +136,36 @@ function initMap() {
 
   // コントロールをマップに追加
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push(currentLocationButton);
+
+
+
+
+
+  // 施設を登録するカスタムコントロール
+  const addFacilityButton = document.createElement('button');
+
+  addFacilityButton.style.backgroundColor = '#fff';
+  addFacilityButton.style.border = '2px solid #fff';
+  addFacilityButton.style.borderRadius = '3px';
+  addFacilityButton.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  addFacilityButton.style.color = "rgb(25,25,25)";
+  addFacilityButton.style.cursor = 'pointer';
+  addFacilityButton.style.lineHeight = "28px";
+  addFacilityButton.style.marginRight = '10px';
+  addFacilityButton.style.marginBottom = '10px';
+  addFacilityButton.style.textAlign = 'center';
+  addFacilityButton.title = 'マップに施設を登録する';
+  addFacilityButton.className = "hover-opacity";
+
+  // FontAwesomeのアイコンを追加
+  const addFacilityIcon = document.createElement('i');
+  addFacilityIcon.className = "fa-sharp fa-solid fa-location-dot fa-2xl col-12";
+  addFacilityButton.appendChild(addFacilityIcon);
+
+  const addFacilityCaption = document.createElement('span');
+  addFacilityCaption.innerText = "登録";
+  addFacilityButton.appendChild(addFacilityCaption);
+
+  // コントロールをマップに追加
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(addFacilityButton);
 }
