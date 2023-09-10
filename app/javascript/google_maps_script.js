@@ -1,44 +1,39 @@
-let loadingInterval;
-let loadingDots = 0;
-
-// ローディングメッセージを表示する関数
-function showLoadingMessage() {
-  const loadingMessage = document.getElementById('loadingMessage');
-  loadingMessage.style.display = 'block';
-  loadingMessage.style.zIndex = '1000';
-
-  loadingInterval = setInterval(() => {
-    if (loadingDots < 3) {
-      loadingMessage.innerText += ".";
-      loadingDots++;
-    } else {
-      loadingMessage.innerText = "Loading map";
-      loadingDots = 0;
-    }
-  }, 500);
-}
-
-// ローディングメッセージを非表示にする関数
-function hideLoadingMessage() {
-  const loadingMessage = document.getElementById('loadingMessage');
-  loadingMessage.style.display = 'none';
-  loadingMessage.style.zIndex = '';
-  loadingMessage.innerText = "Loading map";
-
-  clearInterval(loadingInterval);
-}
-
-
-
-
-
-
-
-
-
-
 // マップを表示する関数
 function initMap() {
+  let loadingInterval;
+  let loadingDots = 0;
+
+  // ローディングメッセージを表示する関数
+  function showLoadingMessage() {
+    const loadingMessage = document.getElementById('loadingMessage');
+    loadingMessage.style.display = 'block';
+    loadingMessage.style.zIndex = '1000';
+
+    loadingInterval = setInterval(() => {
+      if (loadingDots < 3) {
+        loadingMessage.innerText += ".";
+        loadingDots++;
+      } else {
+        loadingMessage.innerText = "Loading map";
+        loadingDots = 0;
+      }
+    }, 500);
+  }
+
+  // ローディングメッセージを非表示にする関数
+  function hideLoadingMessage() {
+    const loadingMessage = document.getElementById('loadingMessage');
+    loadingMessage.style.display = 'none';
+    loadingMessage.style.zIndex = '';
+    loadingMessage.innerText = "Loading map";
+
+    clearInterval(loadingInterval);
+  }
+
+
+
+
+
   showLoadingMessage();
 
   let map = new google.maps.Map(document.getElementById('map'), {

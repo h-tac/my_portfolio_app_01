@@ -53,6 +53,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
 
   gem "dotenv-rails"
+  gem 'pry-rails'
 end
 
 group :development do
@@ -75,3 +76,4 @@ end
 
 gem 'sorcery', "0.16.3"
 gem 'sass-rails'
+gem 'rails-i18n', '~> 7.0.0'

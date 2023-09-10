@@ -2,4 +2,7 @@
 // import "@hotwired/turbo-rails"
 // import "controllers"
 
-//= require bootstrap.min
+import Rails from "rails-ujs";
+Rails.start();
+
+import "bootstrap"
