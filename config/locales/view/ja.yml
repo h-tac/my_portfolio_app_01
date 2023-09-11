@@ -8,6 +8,6 @@ ja:
     flash:
       login:
         success: ログインしました
-        failure: ログインに失敗しました
+        failure: ログインできませんでした
         require: ログインしてください
       logout: ログアウトしました
