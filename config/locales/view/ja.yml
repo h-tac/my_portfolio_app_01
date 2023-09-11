@@ -1,0 +1,13 @@
+ja:
+  helpers:
+    submit:
+      login: ログイン
+    label:
+      email: メールアドレス
+      password: パスワード
+    flash:
+      login:
+        success: ログインしました
+        failure: ログインできませんでした
+        require: ログインしてください
+      logout: ログアウトしました

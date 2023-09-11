@@ -1,49 +1,45 @@
-let loadingInterval;
-let loadingDots = 0;
-
-// ローディングメッセージを表示する関数
-function showLoadingMessage() {
-  const loadingMessage = document.getElementById('loadingMessage');
-  loadingMessage.style.display = 'block';
-  loadingMessage.style.zIndex = '1000';
-
-  loadingInterval = setInterval(() => {
-    if (loadingDots < 3) {
-      loadingMessage.innerText += ".";
-      loadingDots++;
-    } else {
-      loadingMessage.innerText = "Loading map";
-      loadingDots = 0;
-    }
-  }, 500);
-}
-
-// ローディングメッセージを非表示にする関数
-function hideLoadingMessage() {
-  const loadingMessage = document.getElementById('loadingMessage');
-  loadingMessage.style.display = 'none';
-  loadingMessage.style.zIndex = '';
-  loadingMessage.innerText = "Loading map";
-
-  clearInterval(loadingInterval);
-}
-
-
-
-
-
-
-
-
-
-
 // マップを表示する関数
 function initMap() {
+  let loadingInterval;
+  let loadingDots = 0;
+
+  // ローディングメッセージを表示する関数
+  function showLoadingMessage() {
+    const loadingMessage = document.getElementById('loadingMessage');
+    loadingMessage.style.display = 'block';
+    loadingMessage.style.zIndex = '1000';
+
+    loadingInterval = setInterval(() => {
+      if (loadingDots < 3) {
+        loadingMessage.innerText += ".";
+        loadingDots++;
+      } else {
+        loadingMessage.innerText = "Loading map";
+        loadingDots = 0;
+      }
+    }, 500);
+  }
+
+  // ローディングメッセージを非表示にする関数
+  function hideLoadingMessage() {
+    const loadingMessage = document.getElementById('loadingMessage');
+    loadingMessage.style.display = 'none';
+    loadingMessage.style.zIndex = '';
+    loadingMessage.innerText = "Loading map";
+
+    clearInterval(loadingInterval);
+  }
+
+
+
+
+
   showLoadingMessage();
 
   let map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     fullscreenControl: false,
+    streetViewControl: false,
     zoomControlOptions: {
       position: google.maps.ControlPosition.RIGHT_TOP,
     },
@@ -111,7 +107,7 @@ function initMap() {
   currentLocationButton.style.marginTop = '10px';
   currentLocationButton.style.textAlign = 'center';
   currentLocationButton.title = '現在地へ移動する';
-  currentLocationButton.className = "hover-opacity";
+  currentLocationButton.className = "hover-opacity-icon";
 
   // FontAwesomeのアイコンを追加
   const currentLocationIcon = document.createElement('i');
@@ -155,7 +151,7 @@ function initMap() {
   addFacilityButton.style.marginBottom = '10px';
   addFacilityButton.style.textAlign = 'center';
   addFacilityButton.title = 'マップに施設を登録する';
-  addFacilityButton.className = "hover-opacity";
+  addFacilityButton.className = "hover-opacity-icon";
 
   // FontAwesomeのアイコンを追加
   const addFacilityIcon = document.createElement('i');
