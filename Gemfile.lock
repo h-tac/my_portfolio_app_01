@@ -99,6 +99,7 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     ffi (1.15.5)
+    geocoder (1.8.2)
     globalid (1.2.0)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -273,6 +274,7 @@ DEPENDENCIES
   capybara
   debug
   dotenv-rails
+  geocoder
   importmap-rails
   jbuilder
   mysql2 (~> 0.5)
