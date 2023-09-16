@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_03_040352) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_16_133531) do
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "spot_id", null: false
@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_040352) do
   end
 
   create_table "spots", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.string "name", null: false
     t.string "address_prefecture", null: false
     t.string "address_city", null: false
@@ -59,7 +59,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_040352) do
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "latitude", null: false
+    t.float "longitude", null: false
     t.index ["address_detail"], name: "index_spots_on_address_detail", unique: true
+    t.index ["latitude", "longitude"], name: "index_spots_on_latitude_and_longitude", unique: true
     t.index ["user_id"], name: "index_spots_on_user_id"
   end
 
@@ -69,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_040352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["pump_id"], name: "index_spots_pumps_on_pump_id"
+    t.index ["spot_id", "pump_id"], name: "index_spots_pumps_on_spot_id_and_pump_id", unique: true
     t.index ["spot_id"], name: "index_spots_pumps_on_spot_id"
   end
 
@@ -77,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_03_040352) do
     t.bigint "valve_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["spot_id", "valve_id"], name: "index_spots_valves_on_spot_id_and_valve_id", unique: true
     t.index ["spot_id"], name: "index_spots_valves_on_spot_id"
     t.index ["valve_id"], name: "index_spots_valves_on_valve_id"
   end
