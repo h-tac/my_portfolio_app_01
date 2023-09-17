@@ -4,14 +4,12 @@ class SpotsController < ApplicationController
   def new
     @spot = Spot.new
 
-    @spot.spots_pumps.build
-    @spot.spots_valves.build
     @pumps = Pump.all
     @valves = Valve.all
 
-    lat = params[:lat]
-    lng = params[:lng]
-    result = Geocoder.search([lat, lng]).first
+    @lat = params[:lat]
+    @lng = params[:lng]
+    result = Geocoder.search([@lat, @lng]).first
 
     address = result.address # 住所全体 (郵便番号、国名を含む)
 
@@ -44,10 +42,15 @@ class SpotsController < ApplicationController
       flash[:success] = t('helpers.flash.spot.register.success')
       redirect_to root_path
     else
-      @spot.spots_pumps.build
-      @spot.spots_valves.build
       @pumps = Pump.all
       @valves = Valve.all
+
+      @prefecture = @spot.address_prefecture
+      @city = @spot.address_city
+      @address_detail = @spot.address_detail
+      @full_address = "#{@prefecture}#{@city}#{@address_detail}"
+      @lat = @spot.latitude
+      @lng = @spot.longitude
 
       flash.now[:danger] = t('helpers.flash.spot.register.failure')
       render :new

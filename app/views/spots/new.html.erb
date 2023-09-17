@@ -10,12 +10,15 @@
         <%= f.hidden_field :address_prefecture, value: @prefecture %>
         <%= f.hidden_field :address_city, value: @city %>
         <%= f.hidden_field :address_detail, value: @address_detail %>
-        <%= f.hidden_field :latitude, value: params[:lat] %>
-        <%= f.hidden_field :longitude, value: params[:lng] %>
+        <%= f.hidden_field :latitude, value: @lat %>
+        <%= f.hidden_field :longitude, value: @lng %>
 
         <div class="mb-3">
           <%= f.label :name, class: 'form-label' %>
           <%= f.text_field :name, class: 'form-control' %>
+          <% if @spot.errors.include?(:name) %>
+            <p class="text-danger"><%= @spot.errors[:name].first %></p>
+          <% end %>
         </div>
 
         <p>住所: <%= @full_address %></p>
@@ -31,26 +34,28 @@
         </div>
 
         <div class="mb-3">
-          <%= f.fields_for :spots_pumps do |form| %>
-            <%= form.label '空気入れの動力', class: 'form-label', for: nil %>
-            <% @pumps.each_with_index do |pump, index| %>
-              <div>
-                <%= check_box_tag 'spot[spots_pumps_attributes][][pump_id]', pump.id, form.object.pump_id == pump.id, id: "spot_spots_pumps_attributes_#{index}_pump_id" %>
-                <%= label_tag "spot_spots_pumps_attributes_#{index}_pump_id", pump.usage %>
-              </div>
-            <% end %>
+          <%= f.label '空気入れの動力', class: 'form-label', for: nil %>
+          <% @pumps.each_with_index do |pump, index| %>
+            <div>
+              <%= check_box_tag 'spot[spots_pumps_attributes][][pump_id]', pump.id, @spot.spots_pumps.map(&:pump_id).include?(pump.id), id: "spot_spots_pumps_attributes_#{index}_pump_id" %>
+              <%= label_tag "spot_spots_pumps_attributes_#{index}_pump_id", pump.usage %>
+            </div>
+          <% end %>
+          <% if @spot.errors.include?(:spots_pumps) %>
+            <p class="text-danger"><%= @spot.errors[:spots_pumps].first %></p>
           <% end %>
         </div>
 
         <div class="mb-3">
-          <%= f.fields_for :spots_valves do |form| %>
-            <%= form.label '対応するバルブの形状', class: 'form-label', for: nil %>
-            <% @valves.each_with_index do |valve, index| %>
-              <div>
-                <%= check_box_tag 'spot[spots_valves_attributes][][valve_id]', valve.id, form.object.valve_id == valve.id, id: "spot_spots_valves_attributes_#{index}_valve_id" %>
-                <%= label_tag "spot_spots_valves_attributes_#{index}_valve_id", valve.kind %>
-              </div>
-            <% end %>
+          <%= f.label '対応するバルブの形状', class: 'form-label', for: nil %>
+          <% @valves.each_with_index do |valve, index| %>
+            <div>
+              <%= check_box_tag 'spot[spots_valves_attributes][][valve_id]', valve.id, @spot.spots_valves.map(&:valve_id).include?(valve.id), id: "spot_spots_valves_attributes_#{index}_valve_id" %>
+              <%= label_tag "spot_spots_valves_attributes_#{index}_valve_id", valve.kind %>
+            </div>
+          <% end %>
+          <% if @spot.errors.include?(:spots_valves) %>
+            <p class="text-danger"><%= @spot.errors[:spots_valves].first %></p>
           <% end %>
         </div>
 
