@@ -16,3 +16,4 @@ ja:
         register:
           success: 施設を登録しました
           failure: 施設を登録できません
+          overlap: この場所は既に登録されています

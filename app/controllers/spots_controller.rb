@@ -52,7 +52,11 @@ class SpotsController < ApplicationController
       @lat = @spot.latitude
       @lng = @spot.longitude
 
-      flash.now[:danger] = t('helpers.flash.spot.register.failure')
+      if @spot.errors.include?(:latitude)
+        flash.now[:danger] = t('helpers.flash.spot.register.overlap')
+      else
+        flash.now[:danger] = t('helpers.flash.spot.register.failure')
+      end
       render :new
     end
   end

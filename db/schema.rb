@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_16_133531) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_17_133526) do
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "spot_id", null: false
@@ -59,8 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_16_133531) do
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "latitude", null: false
-    t.float "longitude", null: false
+    t.decimal "latitude", precision: 18, scale: 14, null: false
+    t.decimal "longitude", precision: 18, scale: 14, null: false
     t.index ["address_detail"], name: "index_spots_on_address_detail", unique: true
     t.index ["latitude", "longitude"], name: "index_spots_on_latitude_and_longitude", unique: true
     t.index ["user_id"], name: "index_spots_on_user_id"
