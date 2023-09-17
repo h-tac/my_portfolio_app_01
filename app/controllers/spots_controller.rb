@@ -25,8 +25,8 @@ class SpotsController < ApplicationController
 
     # 住所全体から郵便番号、国名、都道府県、市区町村を取り除く
     postal_code = extract_address_component(result, 'postal_code') # 郵便番号
-    country = extract_address_component(result, 'country') # 国名
-    [postal_code, country, @prefecture, @city].compact.each do |item|
+    @country = extract_address_component(result, 'country') # 国名
+    [postal_code, @country, @prefecture, @city].compact.each do |item|
       address.gsub!(/#{item}/, '')
     end
     @address_detail = address.gsub(/、〒\s*/, '').strip
@@ -35,10 +35,11 @@ class SpotsController < ApplicationController
   end
 
   def create
-    @spot = Spot.new(spot_params)
+    params_without_country = spot_params.except(:country)
+    @spot = Spot.new(params_without_country)
     @spot.user_id = current_user.id if current_user
 
-    if @spot.save
+    if spot_params[:country] == '日本' && @spot.save
       flash[:success] = t('helpers.flash.spot.register.success')
       redirect_to root_path
     else
@@ -52,7 +53,9 @@ class SpotsController < ApplicationController
       @lat = @spot.latitude
       @lng = @spot.longitude
 
-      if @spot.errors.include?(:latitude)
+      if spot_params[:country] != '日本'
+        flash.now[:danger] = t('helpers.flash.spot.register.japan_only')
+      elsif @spot.errors.include?(:latitude)
         flash.now[:danger] = t('helpers.flash.spot.register.overlap')
       else
         flash.now[:danger] = t('helpers.flash.spot.register.failure')
@@ -79,6 +82,7 @@ class SpotsController < ApplicationController
       :address_detail,
       :latitude,
       :longitude,
+      :country,
       spots_pumps_attributes: [:pump_id],
       spots_valves_attributes: [:valve_id]
     )
