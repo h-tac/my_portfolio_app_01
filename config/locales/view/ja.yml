@@ -2,12 +2,20 @@ ja:
   helpers:
     submit:
       login: ログイン
+      register: 登録
     label:
       email: メールアドレス
       password: パスワード
     flash:
       login:
         success: ログインしました
-        failure: ログインできませんでした
+        failure: ログインできません
         require: ログインしてください
       logout: ログアウトしました
+      spot:
+        register:
+          success: 施設を登録しました
+          failure: 施設を登録できません
+          overlap: この場所は既に登録されています
+          japan_only: 登録は日本国内のみ可能です
+          invalid_address: 住所が不正です

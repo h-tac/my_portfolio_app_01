@@ -2,11 +2,16 @@ version: '3'
 services:
   db:
     platform: linux/amd64
-    image: mysql:5.7
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
     volumes:
       - data-volume:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_unicode_ci
     ports:
       - "3306:3306"
   web:

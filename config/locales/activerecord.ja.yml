@@ -2,7 +2,22 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      spot: 施設
     attributes:
       user:
         email: メールアドレス
         password: パスワード
+      spot:
+        name: 施設名
+        fee: 貸出し料金
+    errors:
+      models:
+        spot:
+          attributes:
+            name:
+              blank: 施設名を入力してください
+  enums:
+    spot:
+      fee:
+        free: 無料
+        paid: 有料

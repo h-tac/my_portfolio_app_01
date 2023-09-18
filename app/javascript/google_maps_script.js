@@ -1,5 +1,5 @@
-// マップを表示する関数
 function initMap() {
+  // ローディングメッセージを表示するための変数
   let loadingInterval;
   let loadingDots = 0;
 
@@ -36,6 +36,7 @@ function initMap() {
 
   showLoadingMessage();
 
+  // マップを表示するための変数
   let map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     fullscreenControl: false,
@@ -46,11 +47,25 @@ function initMap() {
   });
 
   // マーカーをマップの特定の位置に追加する関数
-  function placeMarker(position) {
-    new google.maps.Marker({
+  function placeMarker(position, isCurrentUserLocation = false) {
+    const marker = new google.maps.Marker({
       position: position,
-      map: map
+      map: map,
+      zIndex: 1
     });
+
+    // 情報ウィンドウを作成
+    if (isCurrentUserLocation) {
+      const infoWindow = new google.maps.InfoWindow({
+        content: '現在地',
+        zIndex: 1
+      });
+
+      // マーカーのクリックイベントを追加し、情報ウィンドウを表示
+      marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+      });
+    }
   }
 
   // ユーザーの現在地を取得
@@ -65,7 +80,7 @@ function initMap() {
       map.setCenter(userLocation);
 
       // マーカーをユーザーの現在地に表示
-      placeMarker(userLocation);
+      placeMarker(userLocation, true);
 
       hideLoadingMessage();
     }, () => {
@@ -95,7 +110,6 @@ function initMap() {
 
   // 現在地へ移動するカスタムコントロール
   const currentLocationButton = document.createElement('button');
-
   currentLocationButton.style.backgroundColor = '#fff';
   currentLocationButton.style.border = '2px solid #fff';
   currentLocationButton.style.borderRadius = '3px';
@@ -139,7 +153,6 @@ function initMap() {
 
   // 施設を登録するカスタムコントロール
   const addFacilityButton = document.createElement('button');
-
   addFacilityButton.style.backgroundColor = '#fff';
   addFacilityButton.style.border = '2px solid #fff';
   addFacilityButton.style.borderRadius = '3px';
@@ -161,6 +174,103 @@ function initMap() {
   const addFacilityCaption = document.createElement('span');
   addFacilityCaption.innerText = "登録";
   addFacilityButton.appendChild(addFacilityCaption);
+
+  // 一時的なマーカーを保存するための変数
+  let tempMarker = null;
+
+  // 一時的な情報ウィンドウを保存するための変数
+  let infoWindow;
+
+  // フラッシュメッセージを表示する関数
+  function showFlashMessage() {
+    // 既存のflashMessageがある場合は削除
+    const existingFlashMessage = document.querySelector('.alert.alert-info');
+    if (existingFlashMessage) {
+      existingFlashMessage.remove();
+    }
+
+    const flashMessage = document.createElement('div');
+    flashMessage.innerText = "登録したい地点にマーカーをドラッグ＆ドロップしてください";
+    flashMessage.className = "alert alert-info";
+
+    const alertContainer = document.getElementsByClassName('alert-container')[0];
+    alertContainer.appendChild(flashMessage);
+  
+    setTimeout(() => {
+      flashMessage.remove();
+    }, 5000);
+  }
+
+  // 与えられた位置情報からURLを生成し、リンクをそのURLに更新する関数
+  function updateLinkWithCoordinates(location) {
+    const lat = location.lat();
+    const lng = location.lng();
+    
+    const newUrl = `/spots/new?lat=${lat}&lng=${lng}`;
+    const registerLink = document.getElementById('registerLocationLink');
+    registerLink.href = newUrl;  // ここでリンクの href 属性を更新
+  }
+
+  // クリックイベントを追加
+  addFacilityButton.addEventListener('click', function() {
+    showFlashMessage();
+
+    let center = map.getCenter();
+    
+    // 以前の一時的なマーカーが存在する場合は削除
+    if(tempMarker) {
+      tempMarker.setMap(null);
+      if (infoWindow) {
+        infoWindow.close();
+      }
+    }
+
+    // マップの中心に一時的なマーカーを立てる
+    tempMarker = new google.maps.Marker({
+      position: center,
+      map: map,
+      draggable: true, // ユーザーがドラッグして位置を変更できるようにする
+      icon: 'https://maps.google.com/mapfiles/ms/micons/purple-dot.png',
+      zIndex: 2
+    });
+
+    // マーカーのクリックイベントを設定
+    google.maps.event.addListener(tempMarker, 'click', showInfoWindow);
+
+    // マーカーがドラッグ開始されたときのイベントを設定
+    tempMarker.addListener('dragstart', function() {
+      if(infoWindow) {
+        infoWindow.close();
+      }
+    });
+
+    // マーカーがドラッグ終了したときのイベントを設定
+    tempMarker.addListener('dragend', showInfoWindow);
+
+    // infoWindowを表示する関数
+    function showInfoWindow() {
+      if(!infoWindow) {
+        const linkContent = '<a href="/spots/new" id="registerLocationLink">この場所を登録する</a>';
+        infoWindow = new google.maps.InfoWindow({
+          content: linkContent,
+          zIndex: 2
+        });
+
+        // infoWindowがDOMに追加された後にイベントを追加する
+        google.maps.event.addListenerOnce(infoWindow, 'domready', function() {
+          // リンクを取得してクリックイベントを追加
+          const registerLink = document.getElementById('registerLocationLink');
+          registerLink.addEventListener('click', function(e) {
+            updateLinkWithCoordinates(tempMarker.getPosition()); // href を更新
+          });
+        });
+      }
+      infoWindow.open(map, tempMarker);
+    }
+
+    // 最初にinfoWindowを表示
+    showInfoWindow();
+  });
 
   // コントロールをマップに追加
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(addFacilityButton);
