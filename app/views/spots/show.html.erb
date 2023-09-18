@@ -23,7 +23,14 @@
       </div>
       <div>
         <p>住所</p>
-        <p><%= @spot.decorate.full_address %></p>
+        <div class="row">
+          <p class="col-6"><%= @spot.decorate.full_address %></p>
+          <div class="col-6">
+            <%= link_to "https://www.google.com/maps/dir/?api=1&destination=#{@spot.decorate.full_address}", target: "_blank" do %>
+              <button class="btn btn-primary">地図</button>
+            <% end %>
+          </div>
+        <div>
       </div>
       <div>
         <p>貸出し料金</p>
