@@ -81,3 +81,4 @@ gem 'enum_help'
 gem 'geocoder'
 gem 'kaminari', "1.2.2"
 gem 'bootstrap5-kaminari-views'
+gem 'draper', '4.0.2'

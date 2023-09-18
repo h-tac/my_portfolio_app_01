@@ -11,7 +11,7 @@
         <% @spots.each do |spot| %>
           <li>
             <p><%= link_to spot.name, spot_path(spot) %></p>
-            <p><%= "#{spot.address_prefecture}#{spot.address_city}#{spot.address_detail}" %></p>
+            <p><%= spot.decorate.full_address %></p>
           </li>
         <% end %>
       </ul>

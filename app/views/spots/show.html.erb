@@ -1,0 +1,50 @@
+<% content_for :title do %>
+  <title><%= @spot.name %> | 自転車空気入れマップ</title>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <div class="row">
+        <h1 class="col-6">施設情報</h1>
+        <div class="col-4">
+          <p>登録日時：<%= @spot.created_at.strftime('%Y/%m/%d %H:%M') %></p>
+          <p>更新日時：<%= @spot.updated_at.strftime('%Y/%m/%d %H:%M') %></p>
+        </div>
+        <div class="col-2">
+          <%= link_to edit_spot_path(@spot) do %>
+            <button class="btn btn-primary">編集</button>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <p>施設名</p>
+        <p><%= @spot.name %></p>
+      </div>
+      <div>
+        <p>住所</p>
+        <p><%= @spot.decorate.full_address %></p>
+      </div>
+      <div>
+        <p>貸出し料金</p>
+        <p><%= @spot.fee_i18n %></p>
+      </div>
+      <div>
+        <p>空気入れの動力</p>
+        <p><%= @spot.pumps.map(&:usage).join('、') %></p>
+      </div>
+      <div>
+        <p>対応するバルブの形状</p>
+        <p><%= @spot.valves.map(&:kind).join('、') %></p>
+      </div>
+      <div>
+        <p>施設の営業時間</p>
+        <% if @spot.opening_time.nil? || @spot.closing_time.nil? %>
+          <p>未登録</p>
+        <% else %>
+          <p><%= @spot.opening_time.strftime('%k:%M') %> 〜 <%= @spot.closing_time.strftime('%k:%M') %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

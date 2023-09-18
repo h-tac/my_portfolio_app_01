@@ -5,6 +5,10 @@ class SpotsController < ApplicationController
     @spots = Spot.all.page(params[:page]).order(created_at: :desc)
   end
 
+  def show
+    @spot = Spot.find(params[:id])
+  end
+
   def new
     @spot = Spot.new
 
@@ -53,7 +57,7 @@ class SpotsController < ApplicationController
       @prefecture = @spot.address_prefecture
       @city = @spot.address_city
       @address_detail = @spot.address_detail
-      @full_address = "#{@prefecture}#{@city}#{@address_detail}"
+      @full_address = @spot.decorate.full_address
       @lat = @spot.latitude
       @lng = @spot.longitude
       @country = spot_params[:country]
@@ -71,6 +75,12 @@ class SpotsController < ApplicationController
       render :new
     end
   end
+
+  def edit; end
+
+  def update; end
+
+  def destroy; end
 
   private
 

@@ -65,6 +65,11 @@
           <%= f.time_field :opening_time, class: 'form-control' %>
           〜
           <%= f.time_field :closing_time, class: 'form-control' %>
+          <% if @spot.errors.include?(:opening_time) %>
+            <p class="text-danger"><%= @spot.errors[:opening_time].first %></p>
+          <% elsif @spot.errors.include?(:closing_time) %>
+            <p class="text-danger"><%= @spot.errors[:closing_time].first %></p>
+          <% end %>
         </div>
 
         <%= f.submit t('helpers.submit.register'), class: 'btn btn-primary' %>
