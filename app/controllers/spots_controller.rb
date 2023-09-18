@@ -1,6 +1,10 @@
 class SpotsController < ApplicationController
   skip_before_action :require_login
 
+  def index
+    @spots = Spot.all.page(params[:page]).order(created_at: :desc)
+  end
+
   def new
     @spot = Spot.new
 
