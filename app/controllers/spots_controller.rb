@@ -52,10 +52,14 @@ class SpotsController < ApplicationController
       @full_address = "#{@prefecture}#{@city}#{@address_detail}"
       @lat = @spot.latitude
       @lng = @spot.longitude
+      @country = spot_params[:country]
 
-      if spot_params[:country] != '日本'
+      case 
+      when @country != '日本'
         flash.now[:danger] = t('helpers.flash.spot.register.japan_only')
-      elsif @spot.errors.include?(:latitude)
+      when @spot.errors.include?(:address_detail)
+        flash.now[:danger] = t('helpers.flash.spot.register.invalid_address')
+      when @spot.errors.include?(:latitude)
         flash.now[:danger] = t('helpers.flash.spot.register.overlap')
       else
         flash.now[:danger] = t('helpers.flash.spot.register.failure')

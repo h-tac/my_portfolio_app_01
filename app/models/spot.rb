@@ -13,7 +13,7 @@ class Spot < ApplicationRecord
   validates :fee, presence: true, inclusion: { in: Spot.fees.keys }
   validates :address_prefecture, presence: true
   validates :address_city, presence: true
-  validates :address_detail, presence: true, uniqueness: true
+  validates :address_detail, presence: true, uniqueness: true, format: { with: /\p{Hiragana}+|\p{Katakana}+|\p{Han}+/ }
   validates :latitude, presence: true, uniqueness: { scope: :longitude }
   validates :longitude, presence: true
   validate :must_have_at_least_one_pump

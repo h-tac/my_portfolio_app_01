@@ -18,3 +18,4 @@ ja:
           failure: 施設を登録できません
           overlap: この場所は既に登録されています
           japan_only: 登録は日本国内のみ可能です
+          invalid_address: 住所が不正です
