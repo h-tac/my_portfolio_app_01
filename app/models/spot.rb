@@ -18,6 +18,7 @@ class Spot < ApplicationRecord
   validates :longitude, presence: true
   validate :must_have_at_least_one_pump
   validate :must_have_at_least_one_valve
+  validate :check_opening_and_closing_times
 
   private
 
@@ -27,5 +28,13 @@ class Spot < ApplicationRecord
 
   def must_have_at_least_one_valve
     errors.add(:spots_valves, 'バルブの形状を一つ以上選択してください') if spots_valves.blank?
+  end
+
+  def check_opening_and_closing_times
+    if opening_time.present? && closing_time.blank?
+      errors.add(:closing_time, '営業開始時間を入力した場合は、営業終了時間も入力してください')
+    elsif opening_time.blank? && closing_time.present?
+      errors.add(:opening_time, '営業終了時間を入力した場合は、営業開始時間も入力してください')
+    end
   end
 end

@@ -1,8 +1,5 @@
 ja:
   activerecord:
-    models:
-      user: ユーザー
-      spot: 施設
     attributes:
       user:
         email: メールアドレス
