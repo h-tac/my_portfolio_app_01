@@ -1,0 +1,21 @@
+<% content_for :title do %>
+  <title>施設一覧 | 自転車空気入れマップ</title>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1>施設一覧</h1>
+      <p>検索結果：<%= @spots.total_count %>件</p>
+      <ul>
+        <% @spots.each do |spot| %>
+          <li>
+            <p><%= link_to spot.name, spot_path(spot) %></p>
+            <p><%= "#{spot.address_prefecture}#{spot.address_city}#{spot.address_detail}" %></p>
+          </li>
+        <% end %>
+      </ul>
+      <%= paginate @spots, theme: 'bootstrap-5' %>
+    </div>
+  </div>
+</div>
