@@ -23,11 +23,15 @@ class Spot < ApplicationRecord
   private
 
   def must_have_at_least_one_pump
-    errors.add(:spots_pumps, '空気入れの動力を一つ以上選択してください') if spots_pumps.blank?
+    if spots_pumps.reject(&:marked_for_destruction?).blank?
+      errors.add(:spots_pumps, '空気入れの動力を一つ以上選択してください')
+    end
   end
 
   def must_have_at_least_one_valve
-    errors.add(:spots_valves, 'バルブの形状を一つ以上選択してください') if spots_valves.blank?
+    if spots_valves.reject(&:marked_for_destruction?).blank?
+      errors.add(:spots_valves, 'バルブの形状を一つ以上選択してください')
+    end
   end
 
   def check_opening_and_closing_times
