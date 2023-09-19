@@ -76,9 +76,27 @@ class SpotsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @spot = Spot.find(params[:id])
 
-  def update; end
+    @pumps = Pump.all
+    @valves = Valve.all
+  end
+
+  def update
+    @spot = Spot.find(params[:id])
+
+    if @spot.update(spot_params)
+      flash[:success] = t('helpers.flash.spot.update.success')
+      redirect_to spot_path(@spot)
+    else
+      @pumps = Pump.all
+      @valves = Valve.all
+
+      flash.now[:danger] = t('helpers.flash.spot.update.failure')
+      render :edit
+    end
+  end
 
   def destroy; end
 
@@ -101,8 +119,8 @@ class SpotsController < ApplicationController
       :latitude,
       :longitude,
       :country,
-      spots_pumps_attributes: [:pump_id],
-      spots_valves_attributes: [:valve_id]
+      spots_pumps_attributes: [:pump_id, :id, :_destroy],
+      spots_valves_attributes: [:valve_id, :id, :_destroy]
     )
     allowed_params[:fee] = allowed_params[:fee].to_i
     allowed_params

@@ -3,6 +3,7 @@ ja:
     submit:
       login: ログイン
       register: 登録
+      update: 更新
     label:
       email: メールアドレス
       password: パスワード
@@ -19,3 +20,6 @@ ja:
           overlap: この場所は既に登録されています
           japan_only: 登録は日本国内のみ可能です
           invalid_address: 住所が不正です
+        update:
+          success: 施設情報を更新しました
+          failure: 施設情報を更新できません
