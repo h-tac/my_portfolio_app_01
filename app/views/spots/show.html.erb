@@ -51,6 +51,36 @@
           <p><%= @spot.opening_time.strftime('%k:%M') %> 〜 <%= @spot.closing_time.strftime('%k:%M') %></p>
         <% end %>
       </div>
+      <div>
+        <p>コメント</p>
+        <% @comments.each do |comment| %>
+          <div class="card mb-3">
+            <div class="card-body">
+              <p class="card-text"><%= comment.content %></p>
+              <p class="card-text">
+                <%= "#{comment.created_at.strftime('%Y/%m/%d %H:%M')}　#{comment.user&.name || '(Anonymous)'}" %>
+              </p>
+              <% if logged_in? && (current_user.role == 'admin' || current_user.id == comment.user_id) %>
+                <%= link_to comment_path(comment), method: :delete, data: { confirm: '本当に削除してよろしいですか？' } do %>
+                  <button class="btn btn-danger">削除</button>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <%= paginate @comments, theme: 'bootstrap-5' %>
+      </div>
+      <div>
+        <%= form_with model: @comment, url: spot_comments_path(@spot), local: true do |f| %>
+          <%= f.hidden_field :spot_id, value: @spot.id %>
+          <div class="mb-3">
+            <%= f.text_area :content, class: 'form-control', placeholder: 'コメントを入力してください', required: true %>
+          </div>
+          <div class="mb-3">
+            <%= f.submit t('helpers.submit.post'), class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

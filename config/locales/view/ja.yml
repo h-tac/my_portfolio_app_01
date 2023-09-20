@@ -4,6 +4,7 @@ ja:
       login: ログイン
       register: 登録
       update: 更新
+      post: 投稿
     label:
       email: メールアドレス
       password: パスワード
@@ -24,3 +25,7 @@ ja:
           success: 施設情報を更新しました
           failure: 施設情報を更新できません
         destroy: 施設を削除しました
+      comment:
+        success: コメントを投稿しました
+        failure: コメントを投稿できません
+        destroy: コメントを削除しました
