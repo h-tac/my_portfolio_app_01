@@ -3,6 +3,7 @@ class Spot < ApplicationRecord
   has_many :spots_valves, dependent: :destroy
   has_many :pumps, through: :spots_pumps
   has_many :valves, through: :spots_valves
+  belongs_to :user, optional: true
 
   accepts_nested_attributes_for :spots_pumps, allow_destroy: true
   accepts_nested_attributes_for :spots_valves, allow_destroy: true

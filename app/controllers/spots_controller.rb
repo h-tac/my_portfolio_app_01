@@ -1,5 +1,5 @@
 class SpotsController < ApplicationController
-  skip_before_action :require_login
+  skip_before_action :require_login, except: :destroy
 
   def index
     @spots = Spot.all.page(params[:page]).order(created_at: :desc)
@@ -98,7 +98,12 @@ class SpotsController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    @spot = Spot.find(params[:id])
+    @spot.destroy!
+    flash[:success] = t('helpers.flash.spot.destroy')
+    redirect_to spots_path
+  end
 
   private
 
