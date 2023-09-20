@@ -198,7 +198,7 @@ function initMap() {
   
     setTimeout(() => {
       flashMessage.remove();
-    }, 5000);
+    }, 15000);
   }
 
   // 与えられた位置情報からURLを生成し、リンクをそのURLに更新する関数
