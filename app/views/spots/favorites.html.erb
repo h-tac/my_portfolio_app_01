@@ -1,11 +1,11 @@
 <% content_for :title do %>
-  <title>登録した施設 | 自転車空気入れマップ</title>
+  <title>お気に入り | 自転車空気入れマップ</title>
 <% end %>
 
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto">
-      <h1>あなたの登録した施設</h1>
+      <h1>お気に入り</h1>
       <p>登録件数：<%= @spots.total_count %>件</p>
       <ul>
         <% @spots.each do |spot| %>

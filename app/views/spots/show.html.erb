@@ -18,7 +18,14 @@
       </div>
       <div>
         <p>施設名</p>
-        <p><%= @spot.name %></p>
+        <div class="row">
+          <div class="col-10">
+            <p><%= @spot.name %></p>
+          </div>
+          <div class="col-2">
+            <%= render partial: 'favorites/favorite_button', locals: { spot: @spot } %>
+          </div>
+        </div>
       </div>
       <div>
         <p>住所</p>
