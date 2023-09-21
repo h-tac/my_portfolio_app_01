@@ -1,0 +1,3 @@
+document.querySelector("#favorite_button_<%= @spot.id %>").outerHTML =
+  "<%= escape_javascript(render 'favorites/unfavorite', spot: @spot) %>"
+;

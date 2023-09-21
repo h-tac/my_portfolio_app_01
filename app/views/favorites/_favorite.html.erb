@@ -1,0 +1,3 @@
+<%= link_to favorites_path(spot_id: spot.id), id: "favorite_button_#{spot.id}", method: :post, remote: true do %>
+  <i class="fa-regular fa-star"></i>
+<% end %>

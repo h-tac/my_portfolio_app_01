@@ -1,14 +1,19 @@
 class FavoritesController < ApplicationController
   def create
-    spot = Spot.find(params[:spot_id])
-    current_user.favorite(spot)
-    redirect_to spots_path
+    @spot = Spot.find(params[:spot_id])
+    current_user.favorite(@spot)
+    respond_to do |format|
+      format.html { redirect_to spots_path }
+      format.js
+    end
   end
 
   def destroy
-    current_user.unfavorite(Favorite.find(params[:id]).spot)
-    # spot_id = Favorite.find(params[:id]).spot.id
-    # @spot = Spot.find(spot_id)
-    redirect_to spots_path
+    @spot = Favorite.find(params[:id]).spot
+    current_user.unfavorite(@spot)
+    respond_to do |format|
+      format.html { redirect_to spots_path }
+      format.js
+    end
   end
 end
