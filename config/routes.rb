@@ -6,9 +6,11 @@ Rails.application.routes.draw do
   delete 'logout', to: 'user_sessions#destroy'
 
   resources :spots do
-    resources :comments, shallow: true, only: [:create, :destroy]
+    resources :comments, shallow: true, only: %i[create destroy]
     collection do
       get 'list'
+      get 'favorites'
     end
   end
+  resources :favorites, only: %i[create destroy]
 end

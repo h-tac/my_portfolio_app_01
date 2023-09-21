@@ -1,0 +1,11 @@
+<% if logged_in? %>
+  <% if current_user.favorite?(spot) %>
+    <%= link_to favorite_path(current_user.favorites.find_by(spot_id: spot.id).id), method: :delete do %>
+      <i class="fa-solid fa-star"></i>
+    <% end %>
+  <% else %>
+    <%= link_to favorites_path(spot_id: spot.id), method: :post do %>
+      <i class="fa-regular fa-star"></i>
+    <% end %>
+  <% end %>
+<% end %>
