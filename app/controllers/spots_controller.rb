@@ -8,7 +8,7 @@ class SpotsController < ApplicationController
   def show
     @spot = Spot.find(params[:id])
     @comment = Comment.new
-    @comments = @spot.comments.page(params[:page]).order(created_at: :desc)
+    @comments = @spot.comments.order(created_at: :asc)
   end
 
   def new
