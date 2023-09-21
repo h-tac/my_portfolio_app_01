@@ -1,0 +1,6 @@
+document.querySelector("#comments_container").insertAdjacentHTML(
+  'beforeend',
+  "<%= j(render 'comments/comment', comment: @comment) %>"
+);
+
+document.querySelector("#comment_content").value = '';

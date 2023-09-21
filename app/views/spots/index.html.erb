@@ -9,9 +9,14 @@
       <p>検索結果：<%= @spots.total_count %>件</p>
       <ul>
         <% @spots.each do |spot| %>
-          <li>
-            <p><%= link_to spot.name, spot_path(spot) %></p>
-            <p><%= spot.decorate.full_address %></p>
+          <li class="row">
+            <div class="col-10">
+              <p><%= link_to spot.name, spot_path(spot) %></p>
+              <p><%= spot.decorate.full_address %></p>
+            </div>
+            <div class="col-2">
+              <%= render partial: 'favorites/favorite_button', locals: { spot: spot } %>
+            </div>
           </li>
         <% end %>
       </ul>

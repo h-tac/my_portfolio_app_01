@@ -1,0 +1,7 @@
+<% if logged_in? %>
+  <% if current_user.favorite?(spot) %>
+    <%= render partial: 'favorites/unfavorite', locals: { spot: spot } %>
+  <% else %>
+    <%= render partial: 'favorites/favorite', locals: { spot: spot } %>
+  <% end %>
+<% end %>

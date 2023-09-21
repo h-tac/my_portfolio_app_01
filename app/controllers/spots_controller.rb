@@ -8,7 +8,7 @@ class SpotsController < ApplicationController
   def show
     @spot = Spot.find(params[:id])
     @comment = Comment.new
-    @comments = @spot.comments.page(params[:page]).order(created_at: :desc)
+    @comments = @spot.comments.order(created_at: :asc)
   end
 
   def new
@@ -109,6 +109,10 @@ class SpotsController < ApplicationController
 
   def list
     @spots = current_user.spots.page(params[:page]).order(created_at: :desc)
+  end
+
+  def favorites
+    @spots = Spot.joins(:favorites).where(favorites: { user_id: current_user.id }).order('favorites.created_at DESC').page(params[:page])
   end
 
   private
