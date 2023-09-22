@@ -1,0 +1,49 @@
+<% content_for :title do %>
+  <title>施設検索 | 自転車空気入れマップ</title>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1>空気入れ貸出し施設検索</h1>
+      <%= search_form_for @q do |f| %>
+        <div class="mb-3">
+          <%= f.label :name_or_address_prefecture_or_address_city_or_address_detail_cont, '施設名・地名', class: 'form-label' %>
+          <%= f.search_field :name_or_address_prefecture_or_address_city_or_address_detail_cont, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :fee_in, '貸出し料金', class: 'form-label', for: nil %>
+          <% Spot.fees.each do |fee_key, fee_value| %>
+            <div>
+              <%= f.check_box :fee_in, { multiple: true }, fee_value, nil %>
+              <%= f.label "fee_in_#{fee_value}", Spot.fees_i18n[fee_key] %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :spots_pumps_pump_id_in, '空気入れの動力', class: 'form-label', for: nil %>
+          <% @pumps.each_with_index do |pump, index| %>
+            <div>
+              <%= check_box_tag 'q[spots_pumps_pump_id_in][]', pump.id, false, id: "spots_pumps_pump_id_in_#{index}" %>
+              <%= label_tag "spots_pumps_pump_id_in_#{index}", pump.usage %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :spots_valves_valve_id_in, '対応するバルブの形状', class: 'form-label', for: nil %>
+          <% @valves.each_with_index do |valve, index| %>
+            <div>
+              <%= check_box_tag 'q[spots_valves_valve_id_in][]', valve.id, false, id: "spots_valves_valve_id_in_#{index}" %>
+              <%= label_tag "spots_valves_valve_id_in_#{index}", valve.kind %>
+            </div>
+          <% end %>
+        </div>
+
+        <%= f.submit t('helpers.submit.search'), class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

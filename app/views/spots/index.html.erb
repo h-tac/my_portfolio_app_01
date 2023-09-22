@@ -6,21 +6,37 @@
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto">
       <h1>施設一覧</h1>
-      <p>検索結果：<%= @spots.total_count %>件</p>
-      <ul>
-        <% @spots.each do |spot| %>
-          <li class="row">
+      <div class="mb-3">
+        <%= search_form_for @q do |f| %>
+          <div class="row">
             <div class="col-10">
-              <p><%= link_to spot.name, spot_path(spot) %></p>
-              <p><%= spot.decorate.full_address %></p>
+              <%= f.search_field :name_or_address_prefecture_or_address_city_or_address_detail_cont, class: 'form-control', placeholder: '施設名・地名' %>
             </div>
             <div class="col-2">
-              <%= render partial: 'favorites/favorite_button', locals: { spot: spot } %>
+              <%= f.submit t('helpers.submit.search'), class: 'btn btn-primary' %>
             </div>
-          </li>
+          </div>
         <% end %>
-      </ul>
-      <%= paginate @spots, theme: 'bootstrap-5' %>
+      </div>
+      <p>検索結果：<%= @spots.total_count %>件</p>
+      <% if @spots.total_count == 0 %>
+        <p>検索条件に一致する施設はありませんでした。</p>
+      <% else %>
+        <ul>
+          <% @spots.each do |spot| %>
+            <li class="row">
+              <div class="col-10">
+                <p><%= link_to spot.name, spot_path(spot) %></p>
+                <p><%= spot.decorate.full_address %></p>
+              </div>
+              <div class="col-2">
+                <%= render partial: 'favorites/favorite_button', locals: { spot: spot } %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <%= paginate @spots, theme: 'bootstrap-5' %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -1,8 +1,9 @@
 class SpotsController < ApplicationController
-  skip_before_action :require_login, except: [:destroy, :list]
+  skip_before_action :require_login, except: %i[destroy list favorites]
 
   def index
-    @spots = Spot.all.page(params[:page]).order(created_at: :desc)
+    @q = Spot.ransack(params[:q])
+    @spots = @q.result(distinct: true).page(params[:page]).order(created_at: :desc)
   end
 
   def show
@@ -113,6 +114,13 @@ class SpotsController < ApplicationController
 
   def favorites
     @spots = Spot.joins(:favorites).where(favorites: { user_id: current_user.id }).order('favorites.created_at DESC').page(params[:page])
+  end
+
+  def search
+    @q = Spot.ransack(params[:q])
+
+    @pumps = Pump.all
+    @valves = Valve.all
   end
 
   private

@@ -65,6 +65,8 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem 'letter_opener_web', '~> 2.0'
 end
 
 group :test do
@@ -82,3 +84,4 @@ gem 'geocoder'
 gem 'kaminari', "1.2.2"
 gem 'bootstrap5-kaminari-views'
 gem 'draper', '4.0.2'
+gem 'ransack', "3.2.1"
