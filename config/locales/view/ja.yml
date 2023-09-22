@@ -5,6 +5,7 @@ ja:
       register: 登録
       update: 更新
       post: 投稿
+      search: 検索
     label:
       email: メールアドレス
       password: パスワード
