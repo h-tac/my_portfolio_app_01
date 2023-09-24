@@ -12,17 +12,29 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login(user_params[:email], user_params[:password])
-      flash[:success] = t('helpers.flash.register.success')
+      flash[:success] = t('helpers.flash.user.register.success')
       redirect_to root_path
     else
-      flash.now[:danger] = t('helpers.flash.register.failure')
+      flash.now[:danger] = t('helpers.flash.user.register.failure')
       render :new
     end
   end
 
-  def edit; end
+  def edit
+    @user = current_user
+  end
 
-  def update; end
+  def update
+    @user = current_user
+
+    if @user.update(user_params)
+      flash[:success] = t('helpers.flash.user.update.success')
+      redirect_to users_path
+    else
+      flash.now[:danger] = t('helpers.flash.user.update.failure')
+      render :edit
+    end
+  end
 
   def destroy; end
 

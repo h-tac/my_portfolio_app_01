@@ -15,9 +15,13 @@ ja:
         failure: ログインできません
         require: ログインしてください
       logout: ログアウトしました
-      register:
-        success: アカウント登録が完了しました
-        failure: アカウント登録に失敗しました
+      user:
+        register:
+          success: アカウント登録が完了しました
+          failure: アカウント登録に失敗しました
+        update:
+          success: アカウント情報を更新しました
+          failure: アカウント情報を更新できません
       spot:
         register:
           success: 施設を登録しました
