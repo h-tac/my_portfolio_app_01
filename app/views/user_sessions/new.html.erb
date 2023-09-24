@@ -9,13 +9,20 @@
       <%= form_with local: true do |f| %>
         <div class="mb-3">
           <%= f.label :email, class: 'form-label' %>
-          <%= f.text_field :email, class: 'form-control' %>
+          <%= f.email_field :email, class: 'form-control' %>
         </div>
         <div class="mb-3">
           <%= f.label :password, class: 'form-label' %>
           <%= f.password_field :password, class: 'form-control' %>
         </div>
         <%= f.submit t('helpers.submit.login'), class: 'btn btn-primary' %>
+      <% end %>
+
+      <hr>
+
+      <h1>新規アカウント登録</h1>
+      <%= link_to new_users_path do %>
+        <button class="btn btn-primary">登録ページへ</button>
       <% end %>
     </div>
   </div>

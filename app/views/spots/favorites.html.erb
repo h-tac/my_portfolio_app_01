@@ -7,20 +7,24 @@
     <div class="col-md-10 col-lg-8 mx-auto">
       <h1>お気に入り</h1>
       <p>登録件数：<%= @spots.total_count %>件</p>
-      <ul>
-        <% @spots.each do |spot| %>
-          <li class="row">
-            <div class="col-10">
-              <p><%= link_to spot.name, spot_path(spot) %></p>
-              <p><%= spot.decorate.full_address %></p>
-            </div>
-            <div class="col-2">
-              <%= render partial: 'favorites/favorite_button', locals: { spot: spot } %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-      <%= paginate @spots, theme: 'bootstrap-5' %>
+      <% if @spots.total_count == 0 %>
+        <p>お気に入りに登録した施設はありません。</p>
+      <% else %>
+        <ul>
+          <% @spots.each do |spot| %>
+            <li class="row">
+              <div class="col-10">
+                <p><%= link_to spot.name, spot_path(spot) %></p>
+                <p><%= spot.decorate.full_address %></p>
+              </div>
+              <div class="col-2">
+                <%= render partial: 'favorites/favorite_button', locals: { spot: spot } %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <%= paginate @spots, theme: 'bootstrap-5' %>
+      <% end %>
     </div>
   </div>
 </div>
