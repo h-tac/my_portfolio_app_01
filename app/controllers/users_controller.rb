@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   before_action :authenticated, only: [:new]
+  before_action :admin_only, only: %i[list spots comments]
 
   def show; end
 
@@ -26,7 +27,6 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-
     if @user.update(user_params)
       flash[:success] = t('helpers.flash.user.update.success')
       redirect_to users_path
@@ -36,7 +36,40 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    @user = current_user
+    if @user.valid_password?(params[:password])
+      @user.destroy!
+      flash[:success] = t('helpers.flash.user.destroy')
+      redirect_to root_path
+    else
+      flash.now[:danger] = 'パスワードが正しくありません'
+      render :delete_confirm
+    end
+  end
+
+  def delete_confirm; end
+
+  def list
+    @users = User.all.order(id: :desc).page(params[:page])
+  end
+
+  def remove
+    @user = User.find(params[:user_id])
+    @user.destroy!
+    flash[:success] = t('helpers.flash.user.destroy')
+    redirect_to list_users_path
+  end
+
+  def spots
+    @user = User.find_by(id: params[:user_id])
+    @spots = @user.spots.order(id: :desc).page(params[:page])
+  end
+
+  def comments
+    @user = User.find_by(id: params[:user_id])
+    @comments = @user.comments.order(id: :desc).page(params[:page])
+  end
 
   private
 

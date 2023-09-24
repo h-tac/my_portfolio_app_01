@@ -1,0 +1,55 @@
+<% content_for :title do %>
+  <title>ユーザー一覧 | 自転車空気入れマップ</title>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1>ユーザー一覧</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ハンドルネーム</th>
+            <th>メールアドレス</th>
+            <th>登録日時</th>
+            <th>登録施設数</th>
+            <th>コメント数</th>
+            <th>管理者</th>
+            <th>削除</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td><%= user.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+              <td>
+                <% if user.spots.count == 0 %>
+                  <%= user.spots.count %>
+                <% else %>
+                  <%= link_to user.spots.count, spots_users_path(user_id: user.id) %>
+                <% end %>
+              <td>
+                <% if user.comments.count == 0 %>
+                  <%= user.comments.count %>
+                <% else %>
+                  <%= link_to user.comments.count, comments_users_path(user_id: user.id) %>
+                <% end %>
+              </td>
+              <td><%= user.admin? ? '○' : '' %></td>
+              <td>
+                <% if user != current_user %>
+                  <%= link_to t('helpers.submit.delete'), remove_users_path(user_id: user.id), method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @users, theme: 'bootstrap-5' %>
+    </div>
+  </div>
+</div>

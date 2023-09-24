@@ -1,0 +1,27 @@
+<% content_for :title do %>
+  <title>アカウント削除 | 自転車空気入れマップ</title>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1>アカウント削除</h1>
+      <p>下記のアカウントを完全に削除しようとしています。<br>削除する場合はパスワードを入力してください。</p>
+      <%= form_with url: users_path, method: :delete, local: true do |f| %>
+        <div>
+          <p>ハンドルネーム</p>
+          <p><%= current_user.name %></p>
+        </div>
+        <div>
+          <p>メールアドレス</p>
+          <p><%= current_user.email %></p>
+        </div>
+        <div class="mb-3">
+          <%= f.label :password, class: 'form-label' %>
+          <%= f.password_field :password, class: 'form-control' %>
+        </div>
+        <%= f.submit t('helpers.submit.delete'), class: 'btn btn-danger', data: { confirm: '本当に削除してよろしいですか？' } %>
+      <% end %>
+    </div>
+  </div>
+</div>
