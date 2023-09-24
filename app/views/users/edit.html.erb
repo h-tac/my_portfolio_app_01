@@ -1,0 +1,22 @@
+<% content_for :title do %>
+  <title>アカウント編集 | 自転車空気入れマップ</title>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1>アカウント情報更新</h1>
+      <%= form_with model: @user, url: users_path, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :name, class: 'form-label' %>
+          <%= f.text_field :name, class: 'form-control' %>
+
+          <% if @user.errors.include?(:name) %>
+            <p class="text-danger"><%= @user.errors[:name].first %></p>
+          <% end %>
+        </div>
+        <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<% content_for :title do %>
+  <title>アカウント | 自転車空気入れマップ</title>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1>アカウント</h1>
+      <div>
+        <p>ハンドルネーム</p>
+        <p><%= current_user.name %></p>
+      </div>
+      <div>
+        <p>メールアドレス</p>
+        <p><%= current_user.email %></p>
+      </div>
+      <div>
+        <p>アカウント登録日</p>
+        <p><%= current_user.created_at.strftime('%Y/%m/%d') %></p>
+      </div>
+      <div>
+        <%= link_to edit_users_path do %>
+          <button class="btn btn-primary">編集</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
