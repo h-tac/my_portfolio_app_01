@@ -8,6 +8,10 @@ class User < ApplicationRecord
 
   enum role: { general: 0, admin: 1 }
 
+  validates :name, presence: true, length: { maximum: 255 }
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true, length: { minimum: 8 }, format: { with: /\A[a-zA-Z0-9]+\z/ }, confirmation: true, on: :create
+
   def favorite(spot)
     favorite_spots << spot
   end

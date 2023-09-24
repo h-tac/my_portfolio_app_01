@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
 
+  resource :users
   resources :spots do
     resources :comments, shallow: true, only: %i[create destroy]
     collection do

@@ -2,13 +2,27 @@ ja:
   activerecord:
     attributes:
       user:
+        name: ハンドルネーム
         email: メールアドレス
-        password: パスワード
+        password: パスワード（半角英数字8文字以上）
+        password_confirmation: パスワード（確認）
       spot:
         name: 施設名
         fee: 貸出し料金
     errors:
       models:
+        user:
+          attributes:
+            name:
+              blank: ハンドルネームを入力してください
+            email:
+              blank: メールアドレスを入力してください
+              taken: このメールアドレスは既に登録されています
+            password:
+              blank: パスワードを入力してください
+              too_short: パスワードは8文字以上で入力してください
+            password_confirmation:
+              confirmation: パスワードが一致しません
         spot:
           attributes:
             name:
