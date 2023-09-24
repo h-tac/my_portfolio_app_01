@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
 
-  resource :users
+  resource :users do
+    collection do
+      get 'delete_confirm'
+    end
+  end
   resources :spots do
     resources :comments, shallow: true, only: %i[create destroy]
     collection do

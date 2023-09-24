@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_21_054249) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_24_090844) do
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "spot_id", null: false
@@ -106,11 +106,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_21_054249) do
   end
 
   add_foreign_key "comments", "spots"
-  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "users", on_delete: :nullify
   add_foreign_key "deletion_requests", "spots"
   add_foreign_key "favorites", "spots"
   add_foreign_key "favorites", "users"
-  add_foreign_key "spots", "users"
+  add_foreign_key "spots", "users", on_delete: :nullify
   add_foreign_key "spots_pumps", "pumps"
   add_foreign_key "spots_pumps", "spots"
   add_foreign_key "spots_valves", "spots"

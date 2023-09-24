@@ -26,7 +26,6 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-
     if @user.update(user_params)
       flash[:success] = t('helpers.flash.user.update.success')
       redirect_to users_path
@@ -36,7 +35,19 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    @user = current_user
+    if @user.valid_password?(params[:password])
+      @user.destroy!
+      flash[:success] = t('helpers.flash.user.destroy')
+      redirect_to root_path
+    else
+      flash.now[:danger] = 'パスワードが正しくありません'
+      render :delete_confirm
+    end
+  end
+
+  def delete_confirm; end
 
   private
 

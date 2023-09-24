@@ -2,7 +2,7 @@ class User < ApplicationRecord
   authenticates_with_sorcery!
 
   has_many :spots
-  has_many :comments
+  has_many :comments, dependent: :nullify
   has_many :favorites, dependent: :destroy
   has_many :favorite_spots, through: :favorites, source: :spot
 

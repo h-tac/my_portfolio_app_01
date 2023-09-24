@@ -6,6 +6,7 @@ ja:
       update: 更新
       post: 投稿
       search: 検索
+      delete: 削除
     label:
       email: メールアドレス
       password: パスワード
@@ -22,6 +23,7 @@ ja:
         update:
           success: アカウント情報を更新しました
           failure: アカウント情報を更新できません
+        destroy: アカウントを削除しました
       spot:
         register:
           success: 施設を登録しました
