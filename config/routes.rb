@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   resource :users do
     collection do
       get 'delete_confirm'
+      get 'list'
+      get 'spots'
+      get 'comments'
+      delete 'remove'
     end
   end
   resources :spots do

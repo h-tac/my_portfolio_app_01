@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   before_action :authenticated, only: [:new]
+  before_action :admin_only, only: %i[list spots comments]
 
   def show; end
 
@@ -48,6 +49,27 @@ class UsersController < ApplicationController
   end
 
   def delete_confirm; end
+
+  def list
+    @users = User.all.order(id: :desc).page(params[:page])
+  end
+
+  def remove
+    @user = User.find(params[:user_id])
+    @user.destroy!
+    flash[:success] = t('helpers.flash.user.destroy')
+    redirect_to list_users_path
+  end
+
+  def spots
+    @user = User.find_by(id: params[:user_id])
+    @spots = @user.spots.order(id: :desc).page(params[:page])
+  end
+
+  def comments
+    @user = User.find_by(id: params[:user_id])
+    @comments = @user.comments.order(id: :desc).page(params[:page])
+  end
 
   private
 

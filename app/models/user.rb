@@ -23,4 +23,8 @@ class User < ApplicationRecord
   def favorite?(spot)
     favorite_spots.include?(spot)
   end
+
+  def admin?
+    role == 'admin'
+  end
 end

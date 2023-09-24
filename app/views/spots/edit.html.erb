@@ -82,7 +82,7 @@
         <div class="d-flex justify-content-between">
           <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary' %>
 
-          <% if logged_in? && (current_user.role == 'admin' || current_user.spots.exists?(@spot.id)) %>
+          <% if logged_in? && (current_user.admin? || current_user.spots.exists?(@spot.id)) %>
             <%= link_to spot_path(@spot), method: :delete, data: { confirm: '本当に削除してよろしいですか？' } do %>
               <button class="btn btn-danger">削除</button>
             <% end %>
