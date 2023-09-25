@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
+
   root to: 'home#index'
 
   get 'login', to: 'user_sessions#new'
@@ -7,6 +9,7 @@ Rails.application.routes.draw do
 
   resource :users do
     collection do
+      get 'activate'
       get 'delete_confirm'
       get 'list'
       get 'spots'
@@ -23,4 +26,9 @@ Rails.application.routes.draw do
     end
   end
   resources :favorites, only: %i[create destroy]
+  resources :email_changes, only: %i[create] do
+    collection do
+      get 'confirm'
+    end
+  end
 end

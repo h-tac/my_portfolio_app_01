@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: %i[new create]
+  skip_before_action :require_login, only: %i[new create activate]
   before_action :authenticated, only: [:new]
   before_action :admin_only, only: %i[list spots comments]
 
@@ -12,9 +12,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      login(user_params[:email], user_params[:password])
-      flash[:success] = t('helpers.flash.user.register.success')
-      redirect_to root_path
+      flash[:success] = t('helpers.flash.user.register.procedure')
+      redirect_to login_path
     else
       flash.now[:danger] = t('helpers.flash.user.register.failure')
       render :new
@@ -45,6 +44,17 @@ class UsersController < ApplicationController
     else
       flash.now[:danger] = 'パスワードが正しくありません'
       render :delete_confirm
+    end
+  end
+
+  def activate
+    if @user = User.load_from_activation_token(params[:token])
+      @user.activate!
+      flash[:success] = t('helpers.flash.user.register.activate')
+      redirect_to login_path
+    else
+      flash[:danger] = t('helpers.flash.user.register.activate_failure')
+      redirect_to login_path
     end
   end
 
