@@ -7,6 +7,7 @@ ja:
       post: 投稿
       search: 検索
       delete: 削除
+      send: 送信
     label:
       email: メールアドレス
       password: パスワード
@@ -18,6 +19,9 @@ ja:
       logout: ログアウトしました
       user:
         register:
+          procedure: 登録認証メールを送信しました。メール内のリンクをクリックしてアカウントを有効化してください。
+          activate: アカウントを有効化しました。ログインしてご利用ください。
+          activate_failure: アカウントを有効化できません
           success: アカウント登録が完了しました
           failure: アカウント登録に失敗しました
         update:
@@ -39,3 +43,7 @@ ja:
         success: コメントを投稿しました
         failure: コメントを投稿できません
         destroy: コメントを削除しました
+      email_change:
+        create: メールを送信しました。メール内のリンクをクリックしてメールアドレスを変更してください。
+        success: メールアドレスを変更しました
+        failure: メールアドレスを変更できません

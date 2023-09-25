@@ -17,6 +17,24 @@
         </div>
         <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary' %>
       <% end %>
+
+      <hr>
+
+      <h1>メールアドレス変更</h1>
+      <div class="mb-3">
+        <p>現在のメールアドレス　<%= @user.email %></p>
+      </div>
+      <%= form_with url: email_changes_path, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :new_email, '新しいメールアドレス', class: 'form-label' %>
+          <%= f.email_field :new_email, class: 'form-control', required: true %>
+
+          <% if @user.errors.include?(:new_email) %>
+            <p class="text-danger"><%= @user.errors[:new_email].first %></p>
+          <% end %>
+        </div>
+        <%= f.submit t('helpers.submit.send'), class: 'btn btn-primary' %>
+      <% end %>
     </div>
   </div>
 </div>

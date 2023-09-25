@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 8 }, format: { with: /\A[a-zA-Z0-9]+\z/ }, confirmation: true, on: :create
+  validate :new_email_uniqueness, if: -> { new_email.present? }
 
   def favorite(spot)
     favorite_spots << spot
@@ -26,5 +27,11 @@ class User < ApplicationRecord
 
   def admin?
     role == 'admin'
+  end
+
+  def new_email_uniqueness
+    if User.where(email: new_email).exists?
+      errors.add(:new_email, 'このメールアドレスは既に登録されています')
+    end
   end
 end
