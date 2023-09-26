@@ -1,0 +1,18 @@
+<% content_for :title do %>
+  <title>パスワードリセット | 自転車空気入れマップ</title>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1>パスワードリセット</h1>
+      <%= form_with url: password_resets_path, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.label :email, class: 'form-label' %>
+          <%= f.email_field :email, class: 'form-control', required: true %>
+        </div>
+        <%= f.submit t('helpers.submit.send'), class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

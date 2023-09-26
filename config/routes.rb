@@ -31,4 +31,5 @@ Rails.application.routes.draw do
       get 'confirm'
     end
   end
+  resources :password_resets, only: %i[new create edit update]
 end
