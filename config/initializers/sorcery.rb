@@ -4,7 +4,7 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = [:user_activation]
+Rails.application.config.sorcery.submodules = [:user_activation, :reset_password]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -346,13 +346,13 @@ Rails.application.config.sorcery.configure do |config|
     # How many seconds before the activation code expires. nil for never expires.
     # Default: `nil`
     #
-    # user.activation_token_expiration_period =
+    user.activation_token_expiration_period = 24.hours
 
     # REQUIRED:
     # User activation mailer class.
     # Default: `nil`
     #
-    # user.user_activation_mailer =
+    user.user_activation_mailer = UserMailer
 
     # When true, sorcery will not automatically
     # send the activation details email, and allow you to
@@ -402,12 +402,12 @@ Rails.application.config.sorcery.configure do |config|
     # Password reset mailer class.
     # Default: `nil`
     #
-    # user.reset_password_mailer =
+    user.reset_password_mailer = UserMailer
 
     # Reset password email method on your mailer class.
     # Default: `:reset_password_email`
     #
-    # user.reset_password_email_method_name =
+    user.reset_password_email_method_name = :reset_password_email
 
     # When true, sorcery will not automatically
     # send the password reset details email, and allow you to
@@ -419,7 +419,7 @@ Rails.application.config.sorcery.configure do |config|
     # How many seconds before the reset request expires. nil for never expires.
     # Default: `nil`
     #
-    # user.reset_password_expiration_period =
+    user.reset_password_expiration_period = 24.hours
 
     # Hammering protection: how long in seconds to wait before allowing another email to be sent.
     # Default: `5 * 60`
@@ -559,9 +559,6 @@ Rails.application.config.sorcery.configure do |config|
     # Default: `:uid`
     #
     # user.provider_uid_attribute_name =
-
-    user.user_activation_mailer = UserMailer
-    user.activation_token_expiration_period = 24.hours
   end
 
   # This line must come after the 'user config' block.

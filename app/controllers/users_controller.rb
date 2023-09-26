@@ -26,7 +26,32 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    if @user.update(user_params)
+    params_without_old_password = user_params.dup
+    params_without_old_password.delete(:old_password)
+
+    if user_params[:old_password].present? || user_params[:password].present? || user_params[:password_confirmation].present?
+      if @user.valid_password?(user_params[:old_password]) && user_params[:password].present? && user_params[:password_confirmation].present?
+        if @user.update(params_without_old_password)
+          flash[:success] = t('helpers.flash.user.update.success')
+          redirect_to users_path
+        else
+          flash.now[:danger] = t('helpers.flash.user.update.failure')
+          render :edit
+        end
+      else
+        case
+        when user_params[:old_password].blank?
+          flash.now[:danger] = '現在のパスワードを入力してください'
+        when user_params[:password].blank? || user_params[:password_confirmation].blank?
+          flash.now[:danger] = '「新しいパスワード」と「新しいパスワード（確認）」を入力してください'
+        when !@user.valid_password?(user_params[:old_password])
+          flash.now[:danger] = '現在のパスワードが正しくありません'
+        else
+          flash.now[:danger] = t('helpers.flash.user.update.failure')
+        end
+        render :edit
+      end
+    elsif @user.update(params_without_old_password)
       flash[:success] = t('helpers.flash.user.update.success')
       redirect_to users_path
     else
@@ -88,7 +113,8 @@ class UsersController < ApplicationController
       :name,
       :email,
       :password,
-      :password_confirmation
+      :password_confirmation,
+      :old_password,
     )
   end
 end

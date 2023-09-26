@@ -15,6 +15,26 @@
             <p class="text-danger"><%= @user.errors[:name].first %></p>
           <% end %>
         </div>
+        <div class="mb-3">
+          <%= f.label :old_password, '現在のパスワード（パスワードを変更したい場合のみ入力してください）', class: 'form-label' %>
+          <%= f.password_field :old_password, class: 'form-control' %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :password, '新しいパスワード（半角英数字8文字以上）', class: 'form-label' %>
+          <%= f.password_field :password, class: 'form-control' %>
+
+          <% if @user.errors.include?(:password) %>
+            <p class="text-danger"><%= @user.errors[:password].first %></p>
+          <% end %>
+        </div>
+        <div class="mb-3">
+          <%= f.label :password_confirmation, '新しいパスワード（確認）', class: 'form-label' %>
+          <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+          <% if @user.errors.include?(:password_confirmation) %>
+            <p class="text-danger"><%= @user.errors[:password_confirmation].first %></p>
+          <% end %>
+        </div>
         <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary' %>
       <% end %>
 
