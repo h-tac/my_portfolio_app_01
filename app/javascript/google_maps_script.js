@@ -50,6 +50,38 @@ function initMap() {
     }, 15000);
   }
 
+  // マーカーをマップの特定の位置に追加する関数
+  function placeMarker(position, isCurrentUserLocation = false, spotData = null) {
+    let markerOptions = {
+      position: position,
+      map: map,
+      zIndex: 1
+    };
+    if (isCurrentUserLocation) {
+      markerOptions.icon = 'https://maps.google.com/mapfiles/ms/micons/green-dot.png';
+    }
+    const marker = new google.maps.Marker(markerOptions);
+
+    function makeInfoWindow(spot_name) {
+      const infoWindow = new google.maps.InfoWindow({
+        content: spot_name,
+        zIndex: 1
+      });
+
+      // マーカーのクリックイベントを追加し、情報ウィンドウを表示
+      marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+      });
+    }
+
+    // 情報ウィンドウを作成
+    if (isCurrentUserLocation) {
+      makeInfoWindow('現在地');
+    } else if (spotData) {
+      makeInfoWindow(`<a href="/spots/${spotData.id}">${spotData.name}</a>`);
+    }
+  }
+
 
 
 
@@ -65,28 +97,6 @@ function initMap() {
       position: google.maps.ControlPosition.RIGHT_TOP,
     },
   });
-
-  // マーカーをマップの特定の位置に追加する関数
-  function placeMarker(position, isCurrentUserLocation = false) {
-    const marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      zIndex: 1
-    });
-
-    // 情報ウィンドウを作成
-    if (isCurrentUserLocation) {
-      const infoWindow = new google.maps.InfoWindow({
-        content: '現在地',
-        zIndex: 1
-      });
-
-      // マーカーのクリックイベントを追加し、情報ウィンドウを表示
-      marker.addListener('click', function() {
-        infoWindow.open(map, marker);
-      });
-    }
-  }
 
   // ユーザーの現在地を取得
   if (navigator.geolocation) {
@@ -287,4 +297,27 @@ function initMap() {
 
   // コントロールをマップに追加
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(addFacilityButton);
+
+
+
+
+
+  // マップ上に登録された施設を表示
+  function spotsOnMap(spots) {
+    for(let spot of spots) {
+      const position = { lat: parseFloat(spot.latitude), lng: parseFloat(spot.longitude) };
+      placeMarker(position, false, spot);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch("/spots_data")
+      .then(response => response.json())
+      .then(spotsData => {
+        spotsOnMap(spotsData);
+      })
+      .catch(error => {
+        console.error('Error fetching spots data:', error);
+      });
+  });
 }
