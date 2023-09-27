@@ -1,0 +1,46 @@
+<% content_for :title do %>
+  <title>地名検索 | 自転車空気入れマップ</title>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 col-lg-8 mx-auto">
+      <h1>地名検索</h1>
+      <p>検索した地名へ地図をジャンプします。</p>
+      <%= form_with url: search_places_path, local: true do |f| %>
+        <div class="row">
+          <div class="col-10">
+            <%= f.text_field :place_name, class: 'form-control', required: true %>
+          </div>
+          <div class="col-2">
+            <%= f.submit t('helpers.submit.search'), class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @places.present? && @searched_flag == true %>
+        <div class="mt-3">
+          <p>検索ワード：<%= params[:place_name] %></p>
+        </div>
+        <div class="mt-3">
+          <ul>
+            <% @places.each do |place| %>
+              <li class="mb-3">
+                <%= link_to place[:address], root_path(lat: place[:lat], lng: place[:lng], place_name: place[:address]) %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% elsif @searched_flag == true %>
+        <div class="mt-3">
+          <p>検索ワード：<%= params[:place_name] %></p>
+        </div>
+        <div class="mt-3">
+          <p>検索結果はありません。</p>
+        </div>
+      <% else %>
+        <%# 何も表示しない %>
+      <% end %>
+    </div>
+  </div>
+</div>

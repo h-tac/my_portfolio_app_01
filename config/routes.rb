@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
+  get 'spots_data', to: 'home#spots_data'
 
   resource :users do
     collection do
@@ -32,4 +33,5 @@ Rails.application.routes.draw do
     end
   end
   resources :password_resets, only: %i[new create edit update]
+  resources :search_places, only: %i[index create]
 end

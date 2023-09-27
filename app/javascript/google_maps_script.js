@@ -30,6 +30,58 @@ function initMap() {
     clearInterval(loadingInterval);
   }
 
+  // フラッシュメッセージを表示する関数
+  function showFlashMessage(message) {
+    // 既存のflashMessageがある場合は削除
+    const existingFlashMessage = document.querySelector('.alert.alert-info');
+    if (existingFlashMessage) {
+      existingFlashMessage.remove();
+    }
+
+    const flashMessage = document.createElement('div');
+    flashMessage.innerText = message;
+    flashMessage.className = "alert alert-info";
+
+    const alertContainer = document.getElementsByClassName('alert-container')[0];
+    alertContainer.appendChild(flashMessage);
+  
+    setTimeout(() => {
+      flashMessage.remove();
+    }, 15000);
+  }
+
+  // マーカーをマップの特定の位置に追加する関数
+  function placeMarker(position, isCurrentUserLocation = false, spotData = null) {
+    let markerOptions = {
+      position: position,
+      map: map,
+      zIndex: 1
+    };
+    if (isCurrentUserLocation) {
+      markerOptions.icon = 'https://maps.google.com/mapfiles/ms/micons/green-dot.png';
+    }
+    const marker = new google.maps.Marker(markerOptions);
+
+    function makeInfoWindow(spot_name) {
+      const infoWindow = new google.maps.InfoWindow({
+        content: spot_name,
+        zIndex: 1
+      });
+
+      // マーカーのクリックイベントを追加し、情報ウィンドウを表示
+      marker.addListener('click', function() {
+        infoWindow.open(map, marker);
+      });
+    }
+
+    // 情報ウィンドウを作成
+    if (isCurrentUserLocation) {
+      makeInfoWindow('現在地');
+    } else if (spotData) {
+      makeInfoWindow(`<a href="/spots/${spotData.id}">${spotData.name}</a>`);
+    }
+  }
+
 
 
 
@@ -46,38 +98,29 @@ function initMap() {
     },
   });
 
-  // マーカーをマップの特定の位置に追加する関数
-  function placeMarker(position, isCurrentUserLocation = false) {
-    const marker = new google.maps.Marker({
-      position: position,
-      map: map,
-      zIndex: 1
-    });
-
-    // 情報ウィンドウを作成
-    if (isCurrentUserLocation) {
-      const infoWindow = new google.maps.InfoWindow({
-        content: '現在地',
-        zIndex: 1
-      });
-
-      // マーカーのクリックイベントを追加し、情報ウィンドウを表示
-      marker.addListener('click', function() {
-        infoWindow.open(map, marker);
-      });
-    }
-  }
-
   // ユーザーの現在地を取得
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position) => {
+      // URLパラメータから緯度と経度を取得
+      const urlParams = new URLSearchParams(window.location.search);
+      const lat = parseFloat(urlParams.get('lat'));
+      const lng = parseFloat(urlParams.get('lng'));
+      const place_name = urlParams.get('place_name');
+
       let userLocation = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       };
 
-      // マップの中心をユーザーの現在地に設定
-      map.setCenter(userLocation);
+      if (lat && lng) {
+        // 指定された緯度と経度を使用してマップの中心を設定
+        map.setCenter({ lat: lat, lng: lng });
+
+        showFlashMessage(`${place_name}へ移動しました`);
+      } else {
+        // マップの中心をユーザーの現在地に設定
+        map.setCenter(userLocation);
+      }
 
       // マーカーをユーザーの現在地に表示
       placeMarker(userLocation, true);
@@ -181,26 +224,6 @@ function initMap() {
   // 一時的な情報ウィンドウを保存するための変数
   let infoWindow;
 
-  // フラッシュメッセージを表示する関数
-  function showFlashMessage() {
-    // 既存のflashMessageがある場合は削除
-    const existingFlashMessage = document.querySelector('.alert.alert-info');
-    if (existingFlashMessage) {
-      existingFlashMessage.remove();
-    }
-
-    const flashMessage = document.createElement('div');
-    flashMessage.innerText = "登録したい地点にマーカーをドラッグ＆ドロップしてください";
-    flashMessage.className = "alert alert-info";
-
-    const alertContainer = document.getElementsByClassName('alert-container')[0];
-    alertContainer.appendChild(flashMessage);
-  
-    setTimeout(() => {
-      flashMessage.remove();
-    }, 15000);
-  }
-
   // 与えられた位置情報からURLを生成し、リンクをそのURLに更新する関数
   function updateLinkWithCoordinates(location) {
     const lat = location.lat();
@@ -213,7 +236,7 @@ function initMap() {
 
   // クリックイベントを追加
   addFacilityButton.addEventListener('click', function() {
-    showFlashMessage();
+    showFlashMessage('登録したい地点にマーカーをドラッグ＆ドロップしてください');
 
     let center = map.getCenter();
     
@@ -274,4 +297,27 @@ function initMap() {
 
   // コントロールをマップに追加
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(addFacilityButton);
+
+
+
+
+
+  // マップ上に登録された施設を表示
+  function spotsOnMap(spots) {
+    for(let spot of spots) {
+      const position = { lat: parseFloat(spot.latitude), lng: parseFloat(spot.longitude) };
+      placeMarker(position, false, spot);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch("/spots_data")
+      .then(response => response.json())
+      .then(spotsData => {
+        spotsOnMap(spotsData);
+      })
+      .catch(error => {
+        console.error('Error fetching spots data:', error);
+      });
+  });
 }
