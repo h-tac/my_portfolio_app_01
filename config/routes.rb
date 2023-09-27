@@ -32,4 +32,5 @@ Rails.application.routes.draw do
     end
   end
   resources :password_resets, only: %i[new create edit update]
+  resources :search_places, only: %i[index create]
 end
