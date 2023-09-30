@@ -4,11 +4,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>アカウント情報更新</h1>
       <%= form_with model: @user, url: users_path, local: true do |f| %>
         <div class="mb-3">
-          <%= f.label :name, class: 'form-label' %>
+          <%= f.label :name, class: 'form-label text-secondary' %>
           <%= f.text_field :name, class: 'form-control' %>
 
           <% if @user.errors.include?(:name) %>
@@ -16,11 +16,11 @@
           <% end %>
         </div>
         <div class="mb-3">
-          <%= f.label :old_password, '現在のパスワード（パスワードを変更したい場合のみ入力してください）', class: 'form-label' %>
+          <%= f.label :old_password, '現在のパスワード（パスワードを変更したい場合のみ入力してください）', class: 'form-label text-secondary' %>
           <%= f.password_field :old_password, class: 'form-control' %>
         </div>
         <div class="mb-3">
-          <%= f.label :password, '新しいパスワード（半角英数字8文字以上）', class: 'form-label' %>
+          <%= f.label :password, '新しいパスワード（半角英数字8文字以上）', class: 'form-label text-secondary' %>
           <%= f.password_field :password, class: 'form-control' %>
 
           <% if @user.errors.include?(:password) %>
@@ -28,32 +28,42 @@
           <% end %>
         </div>
         <div class="mb-3">
-          <%= f.label :password_confirmation, '新しいパスワード（確認）', class: 'form-label' %>
+          <%= f.label :password_confirmation, '新しいパスワード（確認）', class: 'form-label text-secondary' %>
           <%= f.password_field :password_confirmation, class: 'form-control' %>
 
           <% if @user.errors.include?(:password_confirmation) %>
             <p class="text-danger"><%= @user.errors[:password_confirmation].first %></p>
           <% end %>
         </div>
-        <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary' %>
+        <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary col-12 col-lg-2' %>
       <% end %>
 
-      <hr>
+      <hr class="mt-4">
 
       <h1>メールアドレス変更</h1>
-      <div class="mb-3">
-        <p>現在のメールアドレス　<%= @user.email %></p>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">
+            送信ボタンを押下すると認証メールが届きます。<br>
+            メール内のリンクをクリックするまで、メールアドレスは変更されません。<br>
+            メールが受信できない場合、迷惑メールに振り分けられていないかご確認お願いいたします。
+          </p>
+        </div>
+      </div>
+      <div class="mb-3 mt-3">
+        <p class="text-secondary">現在のメールアドレス</p>
+        <p class="ms-3"><%= @user.email %></p>
       </div>
       <%= form_with url: email_changes_path, local: true do |f| %>
         <div class="mb-3">
-          <%= f.label :new_email, '新しいメールアドレス', class: 'form-label' %>
+          <%= f.label :new_email, '新しいメールアドレス', class: 'form-label text-secondary' %>
           <%= f.email_field :new_email, class: 'form-control', required: true %>
 
           <% if @user.errors.include?(:new_email) %>
             <p class="text-danger"><%= @user.errors[:new_email].first %></p>
           <% end %>
         </div>
-        <%= f.submit t('helpers.submit.send'), class: 'btn btn-primary' %>
+        <%= f.submit t('helpers.submit.send'), class: 'btn btn-primary col-12 col-lg-2' %>
       <% end %>
     </div>
   </div>

@@ -1,3 +1,3 @@
 <%= link_to favorite_path(current_user.favorites.find_by(spot_id: spot.id).id), id: "unfavorite_button_#{spot.id}", method: :delete, remote: true do %>
-  <i class="fa-solid fa-star"></i>
+  <i class="fa-solid fa-star" style="color: #1E50A2;"></i>
 <% end %>

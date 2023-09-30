@@ -4,23 +4,21 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <div class="row">
-        <h1 class="col-6">施設情報</h1>
-        <div class="col-4">
-          <p>登録日時：<%= @spot.created_at.strftime('%Y/%m/%d %H:%M') %></p>
-        </div>
-        <div class="col-2">
-          <%= link_to edit_spot_path(@spot) do %>
+        <h1 class="col-12 col-md">施設情報</h1>
+        <div class="col-12 col-md-auto mx-0 row">
+          <p class="text-secondary col-12 col-md-auto text-end">登録日時：<%= @spot.created_at.strftime('%Y/%m/%d %H:%M') %><%= ' *' if @spot.user_id == nil %></p>
+          <%= link_to edit_spot_path(@spot), class: 'col-12 col-md text-end' do %>
             <button class="btn btn-primary">編集</button>
           <% end %>
         </div>
       </div>
       <div>
-        <p>施設名</p>
+        <p class="text-secondary">施設名</p>
         <div class="row">
           <div class="col-10">
-            <p><%= @spot.name %></p>
+            <p class="ms-3"><%= @spot.name %></p>
           </div>
           <div class="col-2">
             <%= render partial: 'favorites/favorite_button', locals: { spot: @spot } %>
@@ -28,10 +26,12 @@
         </div>
       </div>
       <div>
-        <p>住所</p>
+        <p class="text-secondary">住所</p>
         <div class="row">
-          <p class="col-6"><%= @spot.decorate.full_address %></p>
-          <div class="col-6">
+          <div class="col-9 col-md-auto">
+            <p class="ms-3"><%= @spot.decorate.full_address %></p>
+          </div>
+          <div class="col-3 col-md">
             <%= link_to "https://www.google.com/maps/dir/?api=1&destination=#{@spot.decorate.full_address}", target: "_blank" do %>
               <button class="btn btn-primary">地図</button>
             <% end %>
@@ -39,27 +39,30 @@
         <div>
       </div>
       <div>
-        <p>貸出し料金</p>
-        <p><%= @spot.fee_i18n %></p>
+        <p class="text-secondary">貸出し料金</p>
+        <p class="ms-3"><%= @spot.fee_i18n %></p>
       </div>
       <div>
-        <p>空気入れの動力</p>
-        <p><%= @spot.pumps.map(&:usage).join('、') %></p>
+        <p class="text-secondary">空気入れの動力</p>
+        <p class="ms-3"><%= @spot.pumps.map(&:usage).join('、') %></p>
       </div>
       <div>
-        <p>対応するバルブの形状</p>
-        <p><%= @spot.valves.map(&:kind).join('、') %></p>
+        <p class="text-secondary">対応するバルブの形状</p>
+        <p style="font-size: 12px;">
+          ※英式は主にシティサイクル（いわゆるママチャリ）、米式は主にマウンテンバイク、仏式は主にロードバイク・クロスバイクに使われます。<a href="https://www.cso.co.jp/chishiki/img/barub.gif" class="text-decoration-none">こちらの画像</a>を参考にしてください。
+        </p>
+        <p class="ms-3"><%= @spot.valves.map(&:kind).join('、') %></p>
       </div>
       <div>
-        <p>施設の営業時間</p>
+        <p class="text-secondary">施設の営業時間</p>
         <% if @spot.opening_time.nil? || @spot.closing_time.nil? %>
-          <p>未登録</p>
+          <p class="ms-3">未登録</p>
         <% else %>
-          <p><%= @spot.opening_time.strftime('%k:%M') %> 〜 <%= @spot.closing_time.strftime('%k:%M') %></p>
+          <p class="ms-3"><%= @spot.opening_time.strftime('%k:%M') %> 〜 <%= @spot.closing_time.strftime('%k:%M') %></p>
         <% end %>
       </div>
       <div>
-        <p>コメント</p>
+        <p class="text-secondary">コメント</p>
         <div id="comments_container">
           <% @comments.each do |comment| %>
             <%= render partial: 'comments/comment', locals: { comment: comment } %>
@@ -73,7 +76,7 @@
             <%= f.text_area :content, class: 'form-control', id: "comment_content", placeholder: 'コメントを入力してください', required: true %>
           </div>
           <div class="mb-3">
-            <%= f.submit t('helpers.submit.post'), class: 'btn btn-primary' %>
+            <%= f.submit t('helpers.submit.post'), class: 'btn btn-primary col-12 col-lg-2' %>
           </div>
         <% end %>
       </div>

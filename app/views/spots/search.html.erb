@@ -4,45 +4,48 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>空気入れ貸出し施設検索</h1>
       <%= search_form_for @q do |f| %>
         <div class="mb-3">
-          <%= f.label :name_or_address_prefecture_or_address_city_or_address_detail_cont, '施設名・地名', class: 'form-label' %>
+          <%= f.label :name_or_address_prefecture_or_address_city_or_address_detail_cont, '施設名・地名', class: 'form-label text-secondary' %>
           <%= f.search_field :name_or_address_prefecture_or_address_city_or_address_detail_cont, class: 'form-control' %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label :fee_in, '貸出し料金', class: 'form-label', for: nil %>
+        <div class="mb-3 row">
+          <%= f.label :fee_in, '貸出し料金', class: 'form-label text-secondary', for: nil %>
           <% Spot.fees.each do |fee_key, fee_value| %>
-            <div>
+            <div class="col-12 col-md">
               <%= f.check_box :fee_in, { multiple: true }, fee_value, nil %>
               <%= f.label "fee_in_#{fee_value}", Spot.fees_i18n[fee_key] %>
             </div>
           <% end %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label :spots_pumps_pump_id_in, '空気入れの動力', class: 'form-label', for: nil %>
+        <div class="mb-3 row">
+          <%= f.label :spots_pumps_pump_id_in, '空気入れの動力', class: 'form-label text-secondary', for: nil %>
           <% @pumps.each_with_index do |pump, index| %>
-            <div>
+            <div class="col-12 col-md">
               <%= check_box_tag 'q[spots_pumps_pump_id_in][]', pump.id, false, id: "spots_pumps_pump_id_in_#{index}" %>
               <%= label_tag "spots_pumps_pump_id_in_#{index}", pump.usage %>
             </div>
           <% end %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label :spots_valves_valve_id_in, '対応するバルブの形状', class: 'form-label', for: nil %>
+        <div class="mb-3 row">
+          <%= f.label :spots_valves_valve_id_in, '対応するバルブの形状', class: 'form-label text-secondary', for: nil %>
+          <p style="font-size: 12px;">
+            ※英式は主にシティサイクル（いわゆるママチャリ）、米式は主にマウンテンバイク、仏式は主にロードバイク・クロスバイクに使われます。<a href="https://www.cso.co.jp/chishiki/img/barub.gif" class="text-decoration-none">こちらの画像</a>を参考にしてください。
+          </p>
           <% @valves.each_with_index do |valve, index| %>
-            <div>
+            <div class="col-12 col-md">
               <%= check_box_tag 'q[spots_valves_valve_id_in][]', valve.id, false, id: "spots_valves_valve_id_in_#{index}" %>
               <%= label_tag "spots_valves_valve_id_in_#{index}", valve.kind %>
             </div>
           <% end %>
         </div>
 
-        <%= f.submit t('helpers.submit.search'), class: 'btn btn-primary' %>
+        <%= f.submit t('helpers.submit.search'), class: 'btn btn-primary col-12 col-lg-2' %>
       <% end %>
     </div>
   </div>

@@ -4,23 +4,29 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>アカウント削除</h1>
-      <p>下記のアカウントを完全に削除しようとしています。<br>削除する場合はパスワードを入力してください。</p>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">
+            下記のアカウントを完全に削除しようとしています。<br>削除する場合はパスワードを入力してください。
+          </p>
+        </div>
+      </div>
       <%= form_with url: users_path, method: :delete, local: true do |f| %>
-        <div>
-          <p>ハンドルネーム</p>
-          <p><%= current_user.name %></p>
+        <div class="mt-3">
+          <p class="text-secondary">ハンドルネーム</p>
+          <p class="ms-3"><%= current_user.name %></p>
         </div>
         <div>
-          <p>メールアドレス</p>
-          <p><%= current_user.email %></p>
+          <p class="text-secondary">メールアドレス</p>
+          <p class="ms-3"><%= current_user.email %></p>
         </div>
         <div class="mb-3">
-          <%= f.label :password, class: 'form-label' %>
+          <%= f.label :password, class: 'form-label text-secondary' %>
           <%= f.password_field :password, class: 'form-control' %>
         </div>
-        <%= f.submit t('helpers.submit.delete'), class: 'btn btn-danger', data: { confirm: '本当に削除してよろしいですか？' } %>
+        <%= f.submit t('helpers.submit.delete'), class: 'btn btn-danger col-12 col-lg-2', data: { confirm: '本当に削除してよろしいですか？' } %>
       <% end %>
     </div>
   </div>

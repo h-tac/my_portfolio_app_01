@@ -4,30 +4,36 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>コメント一覧</h1>
-      <p>ユーザー名：<%= @user.name %></p>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>施設名</th>
-            <th>コメント</th>
-            <th>投稿日時</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @comments.each do |comment| %>
+      <p>ユーザー名：<%= @user ? @user.name : 'すべてのユーザー' %></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <td><%= comment.id %></td>
-              <td><%= link_to comment.spot.name, spot_path(comment.spot) %></td>
-              <td><%= comment.content %></td>
-              <td><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+              <th>ID</th>
+              <th>施設名</th>
+              <th>コメント</th>
+              <th>投稿者</th>
+              <th>投稿日時</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= paginate @comments, theme: 'bootstrap-5' %>
+          </thead>
+          <tbody>
+            <% @comments.each do |comment| %>
+              <tr>
+                <td><%= comment.id %></td>
+                <td><%= link_to comment.spot.name, spot_path(comment.spot), class: 'text-decoration-none' %></td>
+                <td><%= comment.content %></td>
+                <td><%= comment.user ? comment.user.name : '(匿名)' %></td>
+                <td><%= comment.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        <%= paginate @comments, theme: 'bootstrap-5' %>
+      </div>
     </div>
   </div>
 </div>

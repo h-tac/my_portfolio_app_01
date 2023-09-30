@@ -1,9 +1,11 @@
-<header id="header">
+<header id="header" class="fixed-top">
   <nav class="navbar navbar-dark">
     <div class="container-fluid">
-      <button class="navbar-toggler hover-opacity" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
-        <i class="fa-solid fa-bars fa-lg text-white"></i>
-      </button>
+      <div>
+        <button class="navbar-toggler hover-opacity" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
+          <i class="fa-solid fa-bars fa-lg text-white"></i>
+        </button>
+      </div>
       <div class="offcanvas offcanvas-start" id="menu" style="width: 300px;">
         <div class="offcanvas-header">
           <p class="offcanvas-title h4">MENU</p>
@@ -13,7 +15,7 @@
           <ul class="navbar-nav">
             <li class="nav-item row align-items-center">
               <i class="fa-solid fa-circle-info text-black col-2"></i>
-              <%= link_to 'サービスについて', '#', class: 'nav-link link-dark col hover-underline' %>
+              <%= link_to 'サービスについて', about_path, class: 'nav-link link-dark col hover-underline' %>
             </li>
             <li class="nav-item row align-items-center">
               <i class="fa-solid fa-house text-black col-2"></i>
@@ -33,8 +35,8 @@
             </li>
             <% if logged_in? %>
               <li class="nav-item row align-items-center">
-                <i class="fa-solid fa-table-list text-black col-2"></i>
-                <%= link_to '登録した施設', list_spots_path, class: 'nav-link link-dark col hover-underline' %>
+                <i class="fa-solid fa-map-location-dot text-black col-2"></i>
+                <%= link_to 'あなたの登録した施設', list_spots_path, class: 'nav-link link-dark col hover-underline' %>
               </li>
               <li class="nav-item row align-items-center">
                 <i class="fa-solid fa-star text-black col-2"></i>
@@ -43,7 +45,15 @@
               <% if current_user.admin? %>
                 <li class="nav-item row align-items-center">
                   <i class="fa-solid fa-user text-black col-2"></i>
-                  <%= link_to 'ユーザー一覧', list_users_path, class: 'nav-link link-dark col hover-underline' %>
+                  <%= link_to 'ユーザー一覧（管理）', list_users_path, class: 'nav-link link-dark col hover-underline' %>
+                </li>
+                <li class="nav-item row align-items-center">
+                  <i class="fa-solid fa-table-list text-black col-2"></i>
+                  <%= link_to '登録施設一覧（管理）', spots_users_path, class: 'nav-link link-dark col hover-underline' %>
+                </li>
+                <li class="nav-item row align-items-center">
+                  <i class="fa-solid fa-comments text-black col-2"></i>
+                  <%= link_to 'コメント一覧（管理）', comments_users_path, class: 'nav-link link-dark col hover-underline' %>
                 </li>
               <% end %>
             <% end %>
@@ -51,29 +61,33 @@
         </div>
       </div>
 
-      <h1>
-        <%= link_to '自転車空気入れマップ', root_path, class: 'navbar-brand hover-opacity' %>
-      </h1>
+      <div>
+        <h1>
+          <%= link_to '自転車空気入れマップ', root_path, class: 'navbar-brand hover-opacity mx-0' %>
+        </h1>
+      </div>
 
-      <% if logged_in? %>
-        <div class="dropdown">
-          <button class="btn dropdown-toggle text-white hover-opacity" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa-regular fa-circle-user fa-2xl text-white"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu">
-            <li>
-              <%= link_to 'アカウント', users_path, class: 'dropdown-item' %>
-            </li>
-            <li>
-              <%= link_to 'ログアウト', logout_path, class: 'dropdown-item', method: :delete %>
-            </li>
-          </ul>
-        </div>
-      <% else %>
-        <%= link_to login_path do %>
-          <i class="fa-solid fa-arrow-right-to-bracket fa-2xl text-white hover-opacity"></i>
+      <div>
+        <% if logged_in? %>
+          <div class="dropdown">
+            <button class="btn dropdown-toggle text-white hover-opacity" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa-regular fa-circle-user fa-2xl text-white"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu">
+              <li>
+                <%= link_to 'アカウント', users_path, class: 'dropdown-item' %>
+              </li>
+              <li>
+                <%= link_to 'ログアウト', logout_path, class: 'dropdown-item', method: :delete %>
+              </li>
+            </ul>
+          </div>
+        <% else %>
+          <%= link_to login_path do %>
+            <i class="fa-solid fa-arrow-right-to-bracket fa-2xl text-white hover-opacity"></i>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
   </nav>
 </header>

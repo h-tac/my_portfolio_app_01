@@ -4,11 +4,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>施設情報更新</h1>
       <%= form_with model: @spot, local: true do |f| %>
         <div class="mb-3">
-          <%= f.label :name, class: 'form-label' %>
+          <%= f.label :name, class: 'form-label text-secondary' %>
           <%= f.text_field :name, class: 'form-control' %>
 
           <% if @spot.errors.include?(:name) %>
@@ -16,24 +16,27 @@
           <% end %>
         </div>
 
-        <p>住所: <%= @spot.decorate.full_address %></p>
-
         <div class="mb-3">
-          <%= f.label :fee, class: 'form-label', for: nil %>
+          <%= f.label '住所', class: 'form-label text-secondary' %>
+          <p class="ms-3"><%= @spot.decorate.full_address %></p>
+        </div>
+
+        <div class="mb-3 row">
+          <%= f.label :fee, class: 'form-label text-secondary', for: nil %>
           <% Spot.fees.each do |fee_key, fee_value| %>
-            <div>
+            <div class="col-12 col-md">
               <%= f.radio_button :fee, fee_value, checked: fee_key == @spot.fee %>
               <%= f.label "fee_#{fee_value}", Spot.fees_i18n[fee_key] %>
             </div>
           <% end %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label '空気入れの動力', class: 'form-label', for: nil %>
+        <div class="mb-3 row">
+          <%= f.label '空気入れの動力（一つ以上選択必須）', class: 'form-label text-secondary', for: nil %>
           <% @pumps.each do |pump| %>
             <% spots_pump = @spot.spots_pumps.find_or_initialize_by(pump_id: pump.id) %>
             <%= f.fields_for :spots_pumps, spots_pump do |spots_pump_form| %>
-              <div>
+              <div class="col-12 col-md">
                 <% checkbox_id = "pump_#{pump.id}" %>
                 <%= spots_pump_form.check_box :_destroy, { id: checkbox_id, checked: !spots_pump_form.object.new_record? && !spots_pump_form.object.marked_for_destruction?, inverted: true }, "0", "1" %>
                 <%= spots_pump_form.label :_destroy, pump.usage, for: checkbox_id %>
@@ -47,12 +50,15 @@
           <% end %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label '対応するバルブの形状', class: 'form-label', for: nil %>
+        <div class="mb-3 row">
+          <%= f.label '対応するバルブの形状（一つ以上選択必須）', class: 'form-label text-secondary', for: nil %>
+          <p style="font-size: 12px;">
+            ※英式は主にシティサイクル（いわゆるママチャリ）、米式は主にマウンテンバイク、仏式は主にロードバイク・クロスバイクに使われます。<a href="https://www.cso.co.jp/chishiki/img/barub.gif" class="text-decoration-none">こちらの画像</a>を参考にしてください。よくわからない場合は「英式」で登録してください。
+          </p>
           <% @valves.each do |valve| %>
             <% spots_valve = @spot.spots_valves.find_or_initialize_by(valve_id: valve.id) %>
             <%= f.fields_for :spots_valves, spots_valve do |spots_valve_form| %>
-              <div>
+              <div class="col-12 col-md">
                 <% checkbox_id = "valve_#{valve.id}" %>
                 <%= spots_valve_form.check_box :_destroy, { id: checkbox_id, checked: !spots_valve_form.object.new_record? && !spots_valve_form.object.marked_for_destruction?, inverted: true }, "0", "1" %>
                 <%= spots_valve_form.label :_destroy, valve.kind, for: checkbox_id %>
@@ -67,9 +73,9 @@
         </div>
 
         <div class="mb-3">
-          <%= f.label '施設の営業時間', class: 'form-label', for: nil %>
+          <%= f.label '施設の営業時間（任意）', class: 'form-label text-secondary', for: nil %>
           <%= f.time_field :opening_time, class: 'form-control' %>
-          〜
+          <p class="text-center mb-0">〜</p>
           <%= f.time_field :closing_time, class: 'form-control' %>
 
           <% if @spot.errors.include?(:opening_time) %>
@@ -79,20 +85,20 @@
           <% end %>
         </div>
 
-        <div class="d-flex justify-content-between">
-          <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary' %>
-
-          <% if logged_in? && (current_user.admin? || current_user.spots.exists?(@spot.id)) %>
-            <%= link_to spot_path(@spot), method: :delete, data: { confirm: '本当に削除してよろしいですか？' } do %>
-              <button class="btn btn-danger">削除</button>
-            <% end %>
-          <% else %>
-            <%= link_to '#' do %>
-              <button type="button" class="btn btn-danger">削除依頼</button>
-            <% end %>
-          <% end %>
-        </div>
+        <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary col-12 col-lg-2' %>
       <% end %>
+      <div class="row">
+        <% if logged_in? && (current_user.admin? || current_user.spots.exists?(@spot.id)) %>
+          <%= link_to spot_path(@spot), method: :delete, class: 'col-lg-auto ms-lg-auto', data: { confirm: '本当に削除してよろしいですか？' } do %>
+            <button class="btn btn-danger col-12 mt-3">削除</button>
+          <% end %>
+        <% else %>
+        <!--未実装-->
+          <!--<%= link_to '#', class: 'col-lg-auto ms-lg-auto' do %>
+            <button class="btn btn-danger col-12 mt-3">削除依頼</button>
+          <% end %>-->
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

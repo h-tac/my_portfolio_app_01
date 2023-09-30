@@ -4,30 +4,36 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>登録施設一覧</h1>
-      <p>ユーザー名：<%= @user.name %></p>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>施設名</th>
-            <th>住所</th>
-            <th>登録日時</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @spots.each do |spot| %>
+      <p>ユーザー名：<%= @user ? @user.name : 'すべてのユーザー' %></p>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <td><%= spot.id %></td>
-              <td><%= link_to spot.name, spot_path(spot) %></td>
-              <td><%= spot.decorate.full_address %></td>
-              <td><%= spot.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+              <th>ID</th>
+              <th>施設名</th>
+              <th>住所</th>
+              <th>登録者</th>
+              <th>登録日時</th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-      <%= paginate @spots, theme: 'bootstrap-5' %>
+          </thead>
+          <tbody>
+            <% @spots.each do |spot| %>
+              <tr>
+                <td><%= spot.id %></td>
+                <td><%= link_to spot.name, spot_path(spot), class: 'text-decoration-none' %></td>
+                <td><%= spot.decorate.full_address %></td>
+                <td><%= spot.user ? spot.user.name : '(匿名)' %></td>
+                <td><%= spot.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-center">
+        <%= paginate @spots, theme: 'bootstrap-5' %>
+      </div>
     </div>
   </div>
 </div>

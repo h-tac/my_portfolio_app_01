@@ -4,10 +4,19 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>新規アカウント登録</h1>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text">
+            登録ボタンを押下すると認証メールが届きます。<br>
+            メール内のリンクをクリックするまで、アカウントは有効化されません。<br>
+            メールが受信できない場合、迷惑メールに振り分けられていないかご確認お願いいたします。
+          </p>
+        </div>
+      </div>
       <%= form_with model: @user, local: true do |f| %>
-        <div class="mb-3">
+        <div class="mb-3 mt-3">
           <%= f.label :name, class: 'form-label' %>
           <%= f.text_field :name, class: 'form-control' %>
 
@@ -39,7 +48,7 @@
             <p class="text-danger"><%= @user.errors[:password_confirmation].first %></p>
           <% end %>
         </div>
-        <%= f.submit t('helpers.submit.register'), class: 'btn btn-primary' %>
+        <%= f.submit t('helpers.submit.register'), class: 'btn btn-primary col-12 col-lg-2' %>
       <% end %>
     </div>
   </div>

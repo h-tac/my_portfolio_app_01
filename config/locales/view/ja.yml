@@ -51,3 +51,10 @@ ja:
         create: メールを送信しました。メール内のリンクをクリックしてパスワードを再設定してください。
         success: パスワードを再設定しました
         failure: パスワードを再設定できません
+  views:
+    pagination:
+      first: '&laquo;'
+      last: '&raquo;'
+      previous: '&lsaquo;'
+      next: '&rsaquo;'
+      truncate: '...'
