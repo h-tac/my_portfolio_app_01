@@ -1,0 +1,59 @@
+body {
+  font-family: 'Sawarabi Gothic', sans-serif;
+  background-color: rgb(249,250,251);
+
+  .container, .container-fluid {
+    margin-top: 57px;
+
+    @media (min-width: 768px) {
+      margin-top: 72px;
+    }
+
+    input[type="password"] {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+  }
+
+  header {
+    background-color: #1E50A2;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
+
+    .navbar-toggler {
+      border: none;
+
+      &:focus {
+        box-shadow: none;
+      }
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    .dropdown-toggle {
+      border: none;
+
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
+    .login-icon:hover {
+      transform: scale(1.2);
+    }
+
+    .container, .container-fluid {
+      margin-top: 0;
+    }
+  }
+
+  @media (min-width: 992px) {
+    h1 {
+      font-size: 2.0em;
+    }
+  }
+}

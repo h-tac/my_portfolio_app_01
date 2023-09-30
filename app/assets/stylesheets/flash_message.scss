@@ -1,9 +1,6 @@
 .alert-container {
-  position: absolute;
+  position: fixed;
   top: 5%;
   left: 5%;
-
-  .alert {
-    z-index: 10000;
-  }
+  z-index: 10000;
 }

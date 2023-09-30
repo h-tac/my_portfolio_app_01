@@ -2,13 +2,13 @@
   <title>登録施設一覧 | 自転車空気入れマップ</title>
 <% end %>
 
-<div class="container">
+<main class="container">
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>登録施設一覧</h1>
       <p>ユーザー名：<%= @user ? @user.name : 'すべてのユーザー' %></p>
       <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
           <thead>
             <tr>
               <th>ID</th>
@@ -36,4 +36,4 @@
       </div>
     </div>
   </div>
-</div>
+</main>

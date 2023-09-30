@@ -2,7 +2,7 @@
   <nav class="navbar navbar-dark">
     <div class="container-fluid">
       <div>
-        <button class="navbar-toggler hover-opacity" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu">
           <i class="fa-solid fa-bars fa-lg text-white"></i>
         </button>
       </div>
@@ -70,7 +70,7 @@
       <div>
         <% if logged_in? %>
           <div class="dropdown">
-            <button class="btn dropdown-toggle text-white hover-opacity" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa-regular fa-circle-user fa-2xl text-white"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu">
@@ -83,9 +83,11 @@
             </ul>
           </div>
         <% else %>
-          <%= link_to login_path do %>
-            <i class="fa-solid fa-arrow-right-to-bracket fa-2xl text-white hover-opacity"></i>
-          <% end %>
+          <div class="login-icon">
+            <%= link_to login_path do %>
+              <i class="fa-solid fa-arrow-right-to-bracket fa-2xl text-white"></i>
+            <% end %>
+          </div>
         <% end %>
       </div>
     </div>
