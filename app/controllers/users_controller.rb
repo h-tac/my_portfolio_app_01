@@ -97,13 +97,21 @@ class UsersController < ApplicationController
   end
 
   def spots
-    @user = User.find_by(id: params[:user_id])
-    @spots = @user.spots.order(id: :desc).page(params[:page])
+    if params[:user_id]
+      @user = User.find_by(id: params[:user_id])
+      @spots = @user.spots.order(id: :desc).page(params[:page])
+    else
+      @spots = Spot.all.order(created_at: :desc).page(params[:page])
+    end
   end
 
   def comments
-    @user = User.find_by(id: params[:user_id])
-    @comments = @user.comments.order(id: :desc).page(params[:page])
+    if params[:user_id]
+      @user = User.find_by(id: params[:user_id])
+      @comments = @user.comments.order(id: :desc).page(params[:page])
+    else
+      @comments = Comment.all.order(created_at: :desc).page(params[:page])
+    end
   end
 
   private

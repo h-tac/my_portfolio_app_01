@@ -4,7 +4,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>施設登録</h1>
       <%= form_with model: @spot, local: true do |f| %>
         <%= f.hidden_field :address_prefecture, value: @prefecture %>
@@ -15,7 +15,7 @@
         <%= f.hidden_field :country, value: @country %>
 
         <div class="mb-3">
-          <%= f.label :name, class: 'form-label' %>
+          <%= f.label :name, class: 'form-label text-secondary' %>
           <%= f.text_field :name, class: 'form-control' %>
 
           <% if @spot.errors.include?(:name) %>
@@ -23,22 +23,25 @@
           <% end %>
         </div>
 
-        <p>住所: <%= @full_address %></p>
-
         <div class="mb-3">
-          <%= f.label :fee, class: 'form-label', for: nil %>
+          <%= f.label '住所', class: 'form-label text-secondary' %>
+          <p class="ms-3"><%= @full_address %></p>
+        </div>
+
+        <div class="mb-3 row">
+          <%= f.label :fee, class: 'form-label text-secondary', for: nil %>
           <% Spot.fees.each do |fee_key, fee_value| %>
-            <div>
+            <div class="col-12 col-md">
               <%= f.radio_button :fee, fee_value, checked: fee_key == "free" %>
               <%= f.label "fee_#{fee_value}", Spot.fees_i18n[fee_key] %>
             </div>
           <% end %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label '空気入れの動力', class: 'form-label', for: nil %>
+        <div class="mb-3 row">
+          <%= f.label '空気入れの動力（一つ以上選択必須）', class: 'form-label text-secondary', for: nil %>
           <% @pumps.each_with_index do |pump, index| %>
-            <div>
+            <div class="col-12 col-md">
               <%= check_box_tag 'spot[spots_pumps_attributes][][pump_id]', pump.id, @spot.spots_pumps.map(&:pump_id).include?(pump.id), id: "spot_spots_pumps_attributes_#{index}_pump_id" %>
               <%= label_tag "spot_spots_pumps_attributes_#{index}_pump_id", pump.usage %>
             </div>
@@ -49,10 +52,13 @@
           <% end %>
         </div>
 
-        <div class="mb-3">
-          <%= f.label '対応するバルブの形状', class: 'form-label', for: nil %>
+        <div class="mb-3 row">
+          <%= f.label '対応するバルブの形状（一つ以上選択必須）', class: 'form-label text-secondary', for: nil %>
+          <p style="font-size: 12px;">
+            ※英式は主にシティサイクル（いわゆるママチャリ）、米式は主にマウンテンバイク、仏式は主にロードバイク・クロスバイクに使われます。<a href="https://www.cso.co.jp/chishiki/img/barub.gif" class="text-decoration-none">こちらの画像</a>を参考にしてください。よくわからない場合は「英式」で登録してください。
+          </p>
           <% @valves.each_with_index do |valve, index| %>
-            <div>
+            <div class="col-12 col-md">
               <%= check_box_tag 'spot[spots_valves_attributes][][valve_id]', valve.id, @spot.spots_valves.map(&:valve_id).include?(valve.id), id: "spot_spots_valves_attributes_#{index}_valve_id" %>
               <%= label_tag "spot_spots_valves_attributes_#{index}_valve_id", valve.kind %>
             </div>
@@ -64,9 +70,9 @@
         </div>
 
         <div class="mb-3">
-          <%= f.label '施設の営業時間', class: 'form-label', for: nil %>
+          <%= f.label '施設の営業時間（任意）', class: 'form-label text-secondary', for: nil %>
           <%= f.time_field :opening_time, class: 'form-control' %>
-          〜
+          <p class="text-center mb-0">〜</p>
           <%= f.time_field :closing_time, class: 'form-control' %>
 
           <% if @spot.errors.include?(:opening_time) %>
@@ -76,7 +82,7 @@
           <% end %>
         </div>
 
-        <%= f.submit t('helpers.submit.register'), class: 'btn btn-primary' %>
+        <%= f.submit t('helpers.submit.register'), class: 'btn btn-primary col-12 col-lg-2' %>
       <% end %>
     </div>
   </div>

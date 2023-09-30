@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
   get 'spots_data', to: 'home#spots_data'
+  get 'about', to: 'about#index'
 
   resource :users do
     collection do

@@ -4,26 +4,32 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>あなたの登録した施設</h1>
       <p>登録件数：<%= @spots.total_count %>件</p>
       <% if @spots.total_count == 0 %>
         <p>あなたが登録した施設はありません。</p>
       <% else %>
-        <ul>
+        <ul class="p-0">
           <% @spots.each do |spot| %>
-            <li class="row">
-              <div class="col-10">
-                <p><%= link_to spot.name, spot_path(spot) %></p>
-                <p><%= spot.decorate.full_address %></p>
-              </div>
-              <div class="col-2">
-                <%= render partial: 'favorites/favorite_button', locals: { spot: spot } %>
+            <li class="card border-0 hover-card">
+              <div class="card-body row">
+                <div class="col-11">
+                  <%= link_to spot_path(spot), class: 'text-decoration-none' do %>
+                    <p class="card-text text-black"><%= spot.name %></p>
+                    <p class="card-text text-secondary"><%= spot.decorate.full_address %></p>
+                  <% end %>
+                </div>
+                <div class="col-1">
+                  <%= render partial: 'favorites/favorite_button', locals: { spot: spot } %>
+                </div>
               </div>
             </li>
           <% end %>
         </ul>
-        <%= paginate @spots, theme: 'bootstrap-5' %>
+        <div class="d-flex justify-content-center">
+          <%= paginate @spots, theme: 'bootstrap-5' %>
+        </div>
       <% end %>
     </div>
   </div>

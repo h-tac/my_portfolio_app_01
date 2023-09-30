@@ -52,7 +52,7 @@ class SpotsController < ApplicationController
 
     if spot_params[:country] == '日本' && @spot.save
       flash[:success] = t('helpers.flash.spot.register.success')
-      redirect_to root_path
+      redirect_to spot_path(@spot)
     else
       @pumps = Pump.all
       @valves = Valve.all

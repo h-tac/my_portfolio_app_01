@@ -4,15 +4,15 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto">
+    <div class="col-md-10 col-lg-8 mx-auto mt-3 mb-5">
       <h1>パスワード再設定</h1>
       <%= form_with model: @user, url: password_reset_path(@token), local: true do |f| %>
         <div class="mb-3">
-          <%= f.label :email, class: 'form-label' %>
-          <p><%= @user.email %></p>
+          <%= f.label :email, class: 'form-label text-secondary' %>
+          <p class="ms-3"><%= @user.email %></p>
         </div>
         <div class="mb-3">
-          <%= f.label :password, '新しいパスワード（半角英数字8文字以上）', class: 'form-label' %>
+          <%= f.label :password, '新しいパスワード（半角英数字8文字以上）', class: 'form-label text-secondary' %>
           <%= f.password_field :password, class: 'form-control', required: true %>
 
           <% if @user.errors.include?(:password) %>
@@ -20,14 +20,14 @@
           <% end %>
         </div>
         <div class="mb-3">
-          <%= f.label :password_confirmation, '新しいパスワード（確認）', class: 'form-label' %>
+          <%= f.label :password_confirmation, '新しいパスワード（確認）', class: 'form-label text-secondary' %>
           <%= f.password_field :password_confirmation, class: 'form-control', required: true %>
 
           <% if @user.errors.include?(:password_confirmation) %>
             <p class="text-danger"><%= @user.errors[:password_confirmation].first %></p>
           <% end %>
         </div>
-        <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary' %>
+        <%= f.submit t('helpers.submit.update'), class: 'btn btn-primary col-12 col-lg-2' %>
       <% end %>
     </div>
   </div>
