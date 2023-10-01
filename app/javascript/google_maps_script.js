@@ -310,14 +310,12 @@ function initMap() {
     }
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
-    fetch("/spots_data")
-      .then(response => response.json())
-      .then(spotsData => {
-        spotsOnMap(spotsData);
-      })
-      .catch(error => {
-        console.error('Error fetching spots data:', error);
-      });
-  });
+  fetch("/spots_data")
+    .then(response => response.json())
+    .then(spotsData => {
+      spotsOnMap(spotsData);
+    })
+    .catch(error => {
+      console.error('Error fetching spots data:', error);
+    });
 }
