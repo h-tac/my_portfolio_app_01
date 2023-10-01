@@ -10,7 +10,7 @@ gem "rails", "~> 7.0.7", ">= 7.0.7.2"
 gem "sprockets-rails"
 
 # Use mysql as the database for Active Record
-gem "mysql2", "~> 0.5"
+# gem "mysql2", "~> 0.5"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -54,6 +54,7 @@ group :development, :test do
 
   gem "dotenv-rails"
   gem 'pry-rails'
+  gem "mysql2", "~> 0.5"
 end
 
 group :development do
@@ -74,6 +75,10 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+end
+
+group :production do
+  gem 'pg'
 end
 
 gem 'sorcery', "0.16.3"

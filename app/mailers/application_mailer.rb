@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: Rails.env.production? ? "自転車空気入れマップ <#{ENV['MAIL_ADDRESS']}>" : "from@example.com"
   layout "mailer"
 end
