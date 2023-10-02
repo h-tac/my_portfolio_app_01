@@ -6,7 +6,7 @@ class SearchPlacesController < ApplicationController
   def create
     base_url = 'https://maps.googleapis.com/maps/api/geocode/json'
     address = CGI::escape(params[:place_name])
-    api_key = ENV['GOOGLE_MAPS_API_KEY']
+    api_key = ENV['GOOGLE_MAPS_SERVER_API_KEY']
 
     uri = URI("#{base_url}?address=#{address}&key=#{api_key}&language=ja")
     response = Net::HTTP.get(uri)
