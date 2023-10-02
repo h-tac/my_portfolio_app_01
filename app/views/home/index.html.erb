@@ -22,8 +22,7 @@
 </script>
 
 <script async
-  src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap">
-  // <%= ENV["GOOGLE_MAPS_API_KEY"] %>
+  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap">
 </script>
 
 <%= javascript_include_tag 'google_maps_script' %>
