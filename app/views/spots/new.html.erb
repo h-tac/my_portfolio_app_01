@@ -31,7 +31,7 @@
         <div class="mb-3 row">
           <%= f.label :fee, class: 'form-label text-secondary', for: nil %>
           <% Spot.fees.each do |fee_key, fee_value| %>
-            <div class="col-12 col-md">
+            <div class="col-12 col-md mb-2">
               <%= f.radio_button :fee, fee_value, checked: fee_key == "free" %>
               <%= f.label "fee_#{fee_value}", Spot.fees_i18n[fee_key] %>
             </div>
@@ -41,7 +41,7 @@
         <div class="mb-3 row">
           <%= f.label '空気入れの動力（一つ以上選択必須）', class: 'form-label text-secondary', for: nil %>
           <% @pumps.each_with_index do |pump, index| %>
-            <div class="col-12 col-md">
+            <div class="col-12 col-md mb-2">
               <%= check_box_tag 'spot[spots_pumps_attributes][][pump_id]', pump.id, @spot.spots_pumps.map(&:pump_id).include?(pump.id), id: "spot_spots_pumps_attributes_#{index}_pump_id" %>
               <%= label_tag "spot_spots_pumps_attributes_#{index}_pump_id", pump.usage %>
             </div>
@@ -58,7 +58,7 @@
             ※英式は主にシティサイクル（いわゆるママチャリ）、米式は主にマウンテンバイク、仏式は主にロードバイク・クロスバイクに使われます。<a href="https://www.cso.co.jp/chishiki/img/barub.gif" class="text-decoration-none">こちらの画像</a>を参考にしてください。よくわからない場合は「英式」で登録してください。
           </p>
           <% @valves.each_with_index do |valve, index| %>
-            <div class="col-12 col-md">
+            <div class="col-12 col-md mb-2">
               <%= check_box_tag 'spot[spots_valves_attributes][][valve_id]', valve.id, @spot.spots_valves.map(&:valve_id).include?(valve.id), id: "spot_spots_valves_attributes_#{index}_valve_id" %>
               <%= label_tag "spot_spots_valves_attributes_#{index}_valve_id", valve.kind %>
             </div>
