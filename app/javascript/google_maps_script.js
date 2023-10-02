@@ -93,8 +93,9 @@ function initMap() {
     zoom: 15,
     fullscreenControl: false,
     streetViewControl: false,
+    mapTypeControl: false,
     zoomControlOptions: {
-      position: google.maps.ControlPosition.RIGHT_TOP,
+      position: google.maps.ControlPosition.LEFT_TOP,
     },
   });
 
@@ -160,7 +161,7 @@ function initMap() {
   currentLocationButton.style.color = "rgb(25,25,25)";
   currentLocationButton.style.cursor = 'pointer';
   currentLocationButton.style.lineHeight = "28px";
-  currentLocationButton.style.marginRight = '10px';
+  currentLocationButton.style.marginLeft = '10px';
   currentLocationButton.style.marginTop = '10px';
   currentLocationButton.style.textAlign = 'center';
   currentLocationButton.title = '現在地へ移動する';
@@ -188,7 +189,7 @@ function initMap() {
   });
 
   // コントロールをマップに追加
-  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(currentLocationButton);
+  map.controls[google.maps.ControlPosition.LEFT_TOP].push(currentLocationButton);
 
 
 
@@ -204,7 +205,7 @@ function initMap() {
   addFacilityButton.style.cursor = 'pointer';
   addFacilityButton.style.lineHeight = "28px";
   addFacilityButton.style.marginRight = '10px';
-  addFacilityButton.style.marginBottom = '10px';
+  addFacilityButton.style.marginTop = '10px';
   addFacilityButton.style.textAlign = 'center';
   addFacilityButton.title = 'マップに施設を登録する';
   addFacilityButton.className = "hover-opacity-icon";
@@ -296,7 +297,7 @@ function initMap() {
   });
 
   // コントロールをマップに追加
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(addFacilityButton);
+  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(addFacilityButton);
 
 
 

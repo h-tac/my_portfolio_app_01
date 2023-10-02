@@ -24,7 +24,7 @@
         <div class="mb-3 row">
           <%= f.label :fee, class: 'form-label text-secondary', for: nil %>
           <% Spot.fees.each do |fee_key, fee_value| %>
-            <div class="col-12 col-md">
+            <div class="col-12 col-md mb-2">
               <%= f.radio_button :fee, fee_value, checked: fee_key == @spot.fee %>
               <%= f.label "fee_#{fee_value}", Spot.fees_i18n[fee_key] %>
             </div>
@@ -36,7 +36,7 @@
           <% @pumps.each do |pump| %>
             <% spots_pump = @spot.spots_pumps.find_or_initialize_by(pump_id: pump.id) %>
             <%= f.fields_for :spots_pumps, spots_pump do |spots_pump_form| %>
-              <div class="col-12 col-md">
+              <div class="col-12 col-md mb-2">
                 <% checkbox_id = "pump_#{pump.id}" %>
                 <%= spots_pump_form.check_box :_destroy, { id: checkbox_id, checked: !spots_pump_form.object.new_record? && !spots_pump_form.object.marked_for_destruction?, inverted: true }, "0", "1" %>
                 <%= spots_pump_form.label :_destroy, pump.usage, for: checkbox_id %>
@@ -58,7 +58,7 @@
           <% @valves.each do |valve| %>
             <% spots_valve = @spot.spots_valves.find_or_initialize_by(valve_id: valve.id) %>
             <%= f.fields_for :spots_valves, spots_valve do |spots_valve_form| %>
-              <div class="col-12 col-md">
+              <div class="col-12 col-md mb-2">
                 <% checkbox_id = "valve_#{valve.id}" %>
                 <%= spots_valve_form.check_box :_destroy, { id: checkbox_id, checked: !spots_valve_form.object.new_record? && !spots_valve_form.object.marked_for_destruction?, inverted: true }, "0", "1" %>
                 <%= spots_valve_form.label :_destroy, valve.kind, for: checkbox_id %>

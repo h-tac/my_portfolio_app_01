@@ -15,7 +15,7 @@
         <div class="mb-3 row">
           <%= f.label :fee_in, '貸出し料金', class: 'form-label text-secondary', for: nil %>
           <% Spot.fees.each do |fee_key, fee_value| %>
-            <div class="col-12 col-md">
+            <div class="col-12 col-md mb-2">
               <%= f.check_box :fee_in, { multiple: true }, fee_value, nil %>
               <%= f.label "fee_in_#{fee_value}", Spot.fees_i18n[fee_key] %>
             </div>
@@ -25,7 +25,7 @@
         <div class="mb-3 row">
           <%= f.label :spots_pumps_pump_id_in, '空気入れの動力', class: 'form-label text-secondary', for: nil %>
           <% @pumps.each_with_index do |pump, index| %>
-            <div class="col-12 col-md">
+            <div class="col-12 col-md mb-2">
               <%= check_box_tag 'q[spots_pumps_pump_id_in][]', pump.id, false, id: "spots_pumps_pump_id_in_#{index}" %>
               <%= label_tag "spots_pumps_pump_id_in_#{index}", pump.usage %>
             </div>
@@ -38,7 +38,7 @@
             ※英式は主にシティサイクル（いわゆるママチャリ）、米式は主にマウンテンバイク、仏式は主にロードバイク・クロスバイクに使われます。<a href="https://www.cso.co.jp/chishiki/img/barub.gif" class="text-decoration-none">こちらの画像</a>を参考にしてください。
           </p>
           <% @valves.each_with_index do |valve, index| %>
-            <div class="col-12 col-md">
+            <div class="col-12 col-md mb-2">
               <%= check_box_tag 'q[spots_valves_valve_id_in][]', valve.id, false, id: "spots_valves_valve_id_in_#{index}" %>
               <%= label_tag "spots_valves_valve_id_in_#{index}", valve.kind %>
             </div>
