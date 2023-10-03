@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head prefix="og:https://ogp.me/ns#">
     <%= yield :title %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="description" content="無料で使える自転車空気入れ貸出しスポットの共有マップ。自転車で外出中、タイヤに空気を入れたくなったとき等にご利用ください。">
+    <meta property="og:site_name" content="自転車空気入れマップ">
+    <meta property="og:description" content="無料で使える自転車空気入れ貸出しスポットの共有マップ。自転車で外出中、タイヤに空気を入れたくなったとき等にご利用ください。">
+    <meta property="og:image" content="<%= image_url('ogp_image.jpg') %>">
 
     <%= favicon_link_tag 'favicon.ico' %>
     <link href="https://fonts.googleapis.com/css?family=Sawarabi+Gothic" rel="stylesheet">
