@@ -39,7 +39,7 @@
         </div>
 
         <div class="mb-3 row">
-          <%= f.label '空気入れの動力（一つ以上選択必須）', class: 'form-label text-secondary', for: nil %>
+          <%= f.label '空気入れの駆動方法（一つ以上選択必須）', class: 'form-label text-secondary', for: nil %>
           <% @pumps.each_with_index do |pump, index| %>
             <div class="col-12 col-md mb-2">
               <%= check_box_tag 'spot[spots_pumps_attributes][][pump_id]', pump.id, @spot.spots_pumps.map(&:pump_id).include?(pump.id), id: "spot_spots_pumps_attributes_#{index}_pump_id" %>

@@ -32,7 +32,7 @@
         </div>
 
         <div class="mb-3 row">
-          <%= f.label '空気入れの動力（一つ以上選択必須）', class: 'form-label text-secondary', for: nil %>
+          <%= f.label '空気入れの駆動方法（一つ以上選択必須）', class: 'form-label text-secondary', for: nil %>
           <% @pumps.each do |pump| %>
             <% spots_pump = @spot.spots_pumps.find_or_initialize_by(pump_id: pump.id) %>
             <%= f.fields_for :spots_pumps, spots_pump do |spots_pump_form| %>
