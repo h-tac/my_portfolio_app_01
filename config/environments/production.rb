@@ -91,7 +91,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = { host: 'https://bicycle-air-pump-map-3af2ee52b27e.herokuapp.com', protocol: 'https' }
+  config.action_mailer.default_url_options = { host: 'https://www.bicycle-air-pump-map.com', protocol: 'https' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
