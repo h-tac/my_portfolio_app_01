@@ -133,8 +133,6 @@ function initMap() {
 
       map.setCenter(defaultLocation);
 
-      placeMarker(defaultLocation);
-
       hideLoadingMessage();
     });
   } else {
@@ -142,8 +140,6 @@ function initMap() {
     let defaultLocation = {lat: 35.686, lng: 139.755};
 
     map.setCenter(defaultLocation);
-
-    placeMarker(defaultLocation);
 
     hideLoadingMessage();
   }
@@ -184,7 +180,15 @@ function initMap() {
         };
         map.setCenter(userLocation);
         hideLoadingMessage();
+      }, () => {
+        let defaultLocation = {lat: 35.686, lng: 139.755};
+        map.setCenter(defaultLocation);
+        hideLoadingMessage();
       });
+    } else {
+      let defaultLocation = {lat: 35.686, lng: 139.755};
+      map.setCenter(defaultLocation);
+      hideLoadingMessage();
     }
   });
 
