@@ -27,7 +27,7 @@ class Spot < ApplicationRecord
 
   def must_have_at_least_one_pump
     if spots_pumps.reject(&:marked_for_destruction?).blank?
-      errors.add(:spots_pumps, '空気入れの動力を一つ以上選択してください')
+      errors.add(:spots_pumps, '空気入れの駆動方法を一つ以上選択してください')
     end
   end
 
