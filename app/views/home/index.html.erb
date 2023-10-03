@@ -6,6 +6,10 @@
   Loading map
 </div>
 
+<div id="errorContainer" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: none;">
+  <button id="reloadButton" class="btn btn-primary">再読み込み</button>
+</div>
+
 <main class="container-fluid gx-0" id="map-container">
   <div id="map"></div>
 </main>
@@ -19,6 +23,23 @@
 
   window.onload = adjustMapHeight;
   window.onresize = adjustMapHeight;
+</script>
+
+<script>
+  let checkInterval = setInterval(() => {
+    const mapElement = document.getElementById('map');
+
+    if (!mapElement.hasChildNodes()) {
+      document.getElementById('errorContainer').style.display = 'block';
+      clearInterval(checkInterval);
+    } else {
+      clearInterval(checkInterval);
+    }
+  }, 1000);
+
+  document.getElementById('reloadButton').addEventListener('click', function() {
+    location.reload();
+  });
 </script>
 
 <script async
