@@ -23,7 +23,7 @@
         </div>
 
         <div class="mb-3 row">
-          <%= f.label :spots_pumps_pump_id_in, '空気入れの駆動方法', class: 'form-label text-secondary', for: nil %>
+          <%= f.label :spots_pumps_pump_id_in, '空気入れの使用方法', class: 'form-label text-secondary', for: nil %>
           <% @pumps.each_with_index do |pump, index| %>
             <div class="col-12 col-md mb-2">
               <%= check_box_tag 'q[spots_pumps_pump_id_in][]', pump.id, false, id: "spots_pumps_pump_id_in_#{index}" %>
