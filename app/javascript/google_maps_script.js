@@ -300,8 +300,65 @@ function initMap() {
     showInfoWindow();
   });
 
+  // 施設登録ボタンのポップアップ
+  const popup = document.createElement('div');
+  popup.style.position = 'relative';
+  popup.style.backgroundColor = 'white';
+  popup.style.border = '1px solid rgba(0,0,0,0.1)';
+  popup.style.borderRadius = '5px';
+  popup.style.padding = '10px';
+  popup.style.width = '150px';
+  popup.style.zIndex = '10';
+  popup.style.float = 'left';
+  popup.style.marginRight = '10px';
+  popup.style.display = 'flex';
+  popup.style.justifyContent = 'center';
+  popup.className = 'custom-popup';
+
+  const style = document.createElement('style');
+  style.innerHTML = `
+    .custom-popup::after {
+      content: '';
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;  
+      border-bottom: 10px solid transparent;  
+      border-left: 10px solid white;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ポップアップのメッセージ
+  const message = document.createElement('span');
+  message.innerText = '施設登録はこちら';
+  popup.appendChild(message);
+
+  // 閉じるボタン
+  const closeButton = document.createElement('button');
+  closeButton.className = 'btn-close';
+  closeButton.setAttribute('aria-label', 'Close');
+  closeButton.style.position = 'absolute';
+  closeButton.style.top = '5px';
+  closeButton.style.right = '5px';
+  popup.appendChild(closeButton);
+
+  // 閉じるボタンのクリックイベント
+  closeButton.addEventListener('click', function() {
+    popup.style.display = 'none';
+  });
+
+  const controlWrapper = document.createElement('div');
+  controlWrapper.style.display = 'flex';
+  controlWrapper.style.alignItems = 'center';
+  controlWrapper.appendChild(popup);
+  controlWrapper.appendChild(addFacilityButton);
+
   // コントロールをマップに追加
-  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(addFacilityButton);
+  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(controlWrapper);
 
 
 
