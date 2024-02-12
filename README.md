@@ -48,9 +48,6 @@ Twitterで宣伝したり、SEO対策をする。最初のうちは、主な空�
 - Ruby3系、Ruby on Rails7系、Bootstrap5系を使用。
 - 地図機能はGoogle Maps Platform APIを用いて実装する。
 - Dockerを用いて開発する。
-- Herokuにデプロイする。
-- 検索フォームのオートコンプリート機能はStimulus Autocompleteを用いる（予定）。
-- 画像加工はImageMagickを使用する（予定）。
 
 ## ■ 画面遷移図
 Figma：https://www.figma.com/file/wnKBknQS2o77HqFwtGZyv7/portfolio?type=design&mode=design&t=ZHzsF5j69e7oKZre-1
